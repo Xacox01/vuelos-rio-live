@@ -38,7 +38,12 @@ VIA = "camoufox+warp" if OTA_PROXY else "camoufox"
 # Escaneo de bajo volumen: 1 ida + 1 vuelta por sitio (DataDome banea por volumen).
 # GIG = Aeropuerto Internacional de Galeão (código IATA que el router de Despegar/
 # Falabella acepta en deep links; "RIO" provoca redirección a la home).
-FAL_DATES = [("SCL", "GIG", "2027-01-22"), ("GIG", "SCL", "2027-02-01")]
+# Fechas RODANTES (ventana escaneada = hoy → +75 días): la ida se mira a 10 días
+# y la vuelta a 17 (estancia típica de 7 noches); avanzan solas cada día.
+import datetime as _dt
+_hoy = _dt.date.today()
+FAL_DATES = [("SCL", "GIG", (_hoy + _dt.timedelta(days=10)).isoformat()),
+             ("GIG", "SCL", (_hoy + _dt.timedelta(days=17)).isoformat())]
 
 # Cocha (sin DataDome, pero su API GraphQL sub-cotiza ~10-13% vs la página real):
 # verificamos el mínimo de cada ventana abriendo la página de resultados real.

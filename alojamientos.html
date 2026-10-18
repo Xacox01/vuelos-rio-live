@@ -1,0 +1,404 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0a4fd9">
+<link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Radar Río · Alojamientos en Chile y Argentina — 18 sitios comparados">
+<meta property="og:description" content="Busca donde dormir en cualquier fecha: Airbnb, Booking, Vrbo, Expedia, Hotels.com, Agoda, Hostelworld, Despegar, Cocha, Trivago, Kayak, Google Hoteles + dueños directos (Yapo, Portal Inmobiliario, Argenprop, Zonaprop, MercadoLibre).">
+<meta property="og:image" content="https://xacox01.github.io/vuelos-rio-live/assets/brand/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="Compara alojamientos en Chile y Argentina en 18 sitios a la vez: plataformas (Airbnb, Booking, Vrbo, Expedia, Hotels.com, Agoda, Hostelworld), agencias (Despegar, Cocha), comparadores (Trivago, Kayak, Google Hoteles) y canales de dueños directos (Yapo.cl, Portal Inmobiliario, MercadoLibre, Argenprop, Zonaprop). Radar de precios de noches en vivo.">
+<title>Radar Río · Alojamientos en Chile y Argentina · 18 sitios + dueños directos</title>
+<style>
+/* ============================================================
+   RADAR RÍO — zona ALOJAMIENTOS (mismo sistema de diseño plano)
+   ============================================================ */
+:root{
+  --ink:#1a2b49;--ink2:#33415c;--mut:#5e6d85;--faint:#8a97ab;
+  --bg:#f6f7f9;--white:#ffffff;--line:#e6e9ef;--line2:#d5dae3;
+  --cta:#ff690f;--cta-d:#e55a05;--blue:#0a4fd9;--blue-d:#093fae;
+  --ok:#0e8a4d;--okbg:#e8f6ee;--r:10px;--r2:14px;--sh:0 1px 2px rgba(16,24,40,.06);
+  --sh2:0 8px 24px rgba(16,24,40,.09);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,'Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.45;-webkit-font-smoothing:antialiased}
+[v-cloak]{display:none}
+img{max-width:100%;display:block}
+a{color:var(--blue);text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+header{background:var(--white);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.hbar{display:flex;align-items:center;gap:18px;height:58px}
+.logo{display:flex;gap:10px;align-items:center;color:var(--ink)}
+.logo .sq{width:34px;height:34px;border-radius:9px;background:var(--blue);display:grid;place-items:center;overflow:hidden}
+.logo .sq svg{width:30px;height:30px}
+.logo b{font-size:1.02rem;letter-spacing:-.01em;display:block;line-height:1.1}
+.logo small{font-size:.6rem;color:var(--faint);font-weight:700;letter-spacing:.08em}
+nav.desk{display:flex;gap:4px;margin-left:auto}
+nav.desk a{padding:8px 12px;border-radius:8px;font-size:.86rem;font-weight:700;color:var(--ink2)}
+nav.desk a:hover{background:var(--bg)}
+nav.desk a.on{background:var(--okbg);color:var(--ok)}
+.hstat{margin-left:6px;display:flex;align-items:center;gap:10px}
+.live{display:inline-flex;align-items:center;gap:6px;font-size:.74rem;color:var(--mut);font-weight:700}
+.pulse{width:8px;height:8px;border-radius:50%;background:var(--ok);display:inline-block;animation:pp 1.6s infinite}
+@keyframes pp{0%,100%{opacity:1}50%{opacity:.35}}
+.sk{width:8px;height:8px;border-radius:50%;background:var(--line2);display:inline-block}
+.burger{display:none;border:1px solid var(--line2);background:#fff;border-radius:8px;width:36px;height:36px;cursor:pointer}
+nav.mob{display:none;background:var(--white);border-top:1px solid var(--line);padding:8px 20px 14px}
+nav.mob.open{display:flex;flex-direction:column}
+nav.mob a{padding:11px 4px;font-weight:700;color:var(--ink2);border-bottom:1px solid var(--line);font-size:.92rem}
+.hero{background:var(--bg);border-bottom:1px solid var(--line);padding:34px 0 30px}
+.hero h1{font-size:clamp(1.5rem,3.4vw,2.3rem);letter-spacing:-.02em;line-height:1.14;max-width:820px}
+.hero .pr{color:var(--cta)}
+.hero .sub{margin-top:10px;color:var(--mut);max-width:840px;font-size:.95rem}
+.search{background:var(--white);border:1px solid var(--line2);border-radius:var(--r2);box-shadow:var(--sh2);display:flex;align-items:stretch;margin-top:22px;overflow:hidden;flex-wrap:wrap}
+.sf{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:13px 18px;border-right:1px solid var(--line);min-width:0}
+.sf label{font-size:.66rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.sf select,.sf input{border:0;background:transparent;font:inherit;font-weight:700;color:var(--ink);padding:0;outline:none;width:100%}
+.sf input::placeholder{color:var(--faint);font-weight:600}
+.sf input[type=date]{font-size:.88rem}
+.sf.grow{flex:1 1 210px}
+.sf.mid{flex:1 1 140px}
+.cta-btn{background:var(--cta);color:#fff;border:0;font-weight:800;font-size:.95rem;padding:0 30px;cursor:pointer;display:inline-flex;align-items:center;gap:9px;transition:.15s}
+.cta-btn:hover{background:var(--cta-d)}
+.cta-btn svg{width:17px;height:17px}
+.qerr{color:#c0392b;font-weight:700;font-size:.82rem;margin-top:10px}
+.hint{margin-top:12px;font-size:.78rem;color:var(--mut)}
+section{padding:30px 0}
+.band{background:var(--white);border-bottom:1px solid var(--line)}
+.shead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.shead h2{font-size:1.25rem;letter-spacing:-.01em}
+.note-r{font-size:.78rem;color:var(--mut)}
+.note-r b{color:var(--ink)}
+.grupo{margin:20px 0 6px;font-size:.78rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:8px}
+.grupo::after{content:'';flex:1;height:1px;background:var(--line)}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.pcard{border:1px solid var(--line2);border-radius:var(--r2);padding:13px 14px;display:flex;flex-direction:column;gap:4px;color:var(--ink);text-decoration:none;background:var(--bg);transition:.15s;position:relative}
+.pcard:hover{border-color:var(--cta);background:#fff;box-shadow:var(--sh)}
+.pcard .ph{display:flex;align-items:center;gap:9px}
+.pcard .ic{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;font-weight:800;font-size:.8rem;color:#fff;flex:0 0 auto}
+.pcard b{font-size:.9rem}
+.pcard .desc{font-size:.72rem;color:var(--mut);line-height:1.4;flex:1}
+.pcard .go{font-size:.74rem;font-weight:800;color:var(--cta)}
+.pcard .own{position:absolute;top:10px;right:10px;background:var(--okbg);color:var(--ok);border:1px solid #bfe6cf;border-radius:999px;font-size:.58rem;font-weight:800;padding:2px 7px;letter-spacing:.05em}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:10px}
+.scard{border:1px solid var(--line2);border-radius:var(--r2);background:var(--white);padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.scard .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.scard .fl{font-size:1.1rem}
+.scard .nm{font-weight:800;font-size:.95rem}
+.scard .win{font-size:.72rem;color:var(--mut)}
+.scard .pr{font-size:1.3rem;font-weight:800;color:var(--ok)}
+.scard .pr small{display:block;font-size:.6rem;color:var(--faint);font-weight:700;letter-spacing:.06em}
+.srcchips{display:flex;gap:6px;flex-wrap:wrap}
+.schip{font-size:.68rem;font-weight:700;border:1px solid var(--line2);border-radius:999px;padding:3px 9px;color:var(--ink2);background:var(--bg);display:inline-flex;gap:5px;align-items:center}
+.schip b{color:var(--ink)}
+.schip.src{color:var(--blue);border-color:#c8d6f5;background:#f3f7ff}
+.fresh{font-size:.66rem;color:var(--faint);display:inline-flex;align-items:center;gap:5px}
+.fresh i{width:6px;height:6px;border-radius:50%;background:var(--ok);display:inline-block}
+.fresh.old i{background:#d9a514}
+.panel{background:var(--white);border:1px solid var(--line2);border-radius:var(--r2);padding:20px;box-shadow:var(--sh)}
+.panel h3{font-size:1rem;margin-bottom:8px}
+.pp{font-size:.85rem;color:var(--mut)}
+.faq details{background:var(--white);border:1px solid var(--line2);border-radius:var(--r2);padding:14px 18px;margin-bottom:8px}
+.faq summary{font-weight:800;cursor:pointer;font-size:.92rem}
+.faq .fa-body{margin-top:10px;font-size:.85rem;color:var(--ink2);line-height:1.55}
+footer{background:var(--ink);color:#c9d2e4;padding:30px 0 20px;margin-top:20px}
+.fgrid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:26px}
+footer h4{color:#fff;font-size:.85rem;margin-bottom:10px;letter-spacing:.04em}
+footer a{display:block;color:#c9d2e4;font-size:.82rem;padding:3px 0}
+footer a:hover{color:#fff}
+footer p{font-size:.8rem;line-height:1.55}
+.flogo{display:flex;align-items:center;gap:8px;color:#fff;font-weight:800;margin-bottom:10px}
+.fbottom{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.14);margin-top:22px;padding-top:14px;font-size:.68rem;color:#8fa0bf}
+@media(max-width:860px){
+  nav.desk{display:none}.burger{display:block}
+  .fgrid{grid-template-columns:1fr}
+  .sf{flex:1 1 46%}
+}
+</style>
+</head>
+<body>
+<div id="app" v-cloak>
+
+<header>
+  <div class="wrap hbar">
+    <a class="logo" href="index.html" aria-label="Radar Río">
+      <span class="sq" aria-hidden="true"><svg viewBox="0 0 512 512" fill="none"><circle cx="256" cy="256" r="240" fill="#0a4fd9"/><path d="M 306.2 110.9 A 160 160 0 0 1 401.1 205.8" stroke="#ff690f" stroke-width="44" stroke-linecap="round"/><g transform="translate(246 266) rotate(45) scale(14) translate(-12 -12)"><path fill="#fff" d="M21.5,15.5v-2l-8,-5V3.38C13.5,2.61,12.89,2,12.12,2S10.75,2.61,10.75,3.38v5.25l-8,5v2l8,-2.5v5.5l-2.25,1.69V21.5L12,20.5l3.5,1v-1.81L13.25,18v-5.5L21.5,15.5z"/></g></svg></span>
+      <span><b>Radar Río</b><small>ALOJAMIENTOS · CHILE Y ARGENTINA</small></span>
+    </a>
+    <nav class="desk">
+      <a href="index.html">Vuelos</a>
+      <a href="alojamientos.html" class="on">Alojamientos</a>
+      <a href="#radar">Radar de precios</a>
+      <a href="#faq">Preguntas</a>
+    </nav>
+    <div class="hstat">
+      <span class="live" v-if="D"><i class="pulse"></i><span class="lbl">Radar {{ago(D.updated)}}</span></span>
+      <span class="live" v-else><i class="sk"></i><span class="lbl">Cargando…</span></span>
+      <button class="burger" @click="mob=!mob" aria-label="Menú"><svg viewBox="0 0 24 24" fill="none" stroke="#1a2b49" stroke-width="2.4"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+    </div>
+  </div>
+  <nav class="mob" :class="{open:mob}">
+    <a href="index.html" @click="mob=false">Vuelos</a>
+    <a href="#radar" @click="mob=false">Radar de precios</a>
+    <a href="#faq" @click="mob=false">Preguntas frecuentes</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <h1>¿Dónde duermes? Compara <span class="pr">18 sitios</span> con tu búsqueda ya armada</h1>
+    <p class="sub">Cualquier destino de Chile y Argentina, cualquier fecha, sin límites. Incluimos plataformas globales (Airbnb, Booking, Vrbo…), agencias y comparadores, y <b>canales de dueños directos</b> — arriendo temporal publicado por los propios dueños, que suele ser más barato que las plataformas.</p>
+
+    <div class="search" role="search">
+      <div class="sf grow">
+        <label>Destino</label>
+        <input v-model="sd" list="destinoscl" placeholder="Ej: Pucón, Bariloche, La Serena…" aria-label="Destino">
+      </div>
+      <div class="sf mid"><label>Check-in</label><input type="date" v-model="sci" :min="hoyISO" aria-label="Check-in"></div>
+      <div class="sf mid"><label>Check-out</label><input type="date" v-model="sco" :min="sci" aria-label="Check-out"></div>
+      <div class="sf mid">
+        <label>Huéspedes</label>
+        <select v-model.number="sg">
+          <option :value="1">1 huésped</option><option :value="2">2 huéspedes</option>
+          <option :value="3">3 huéspedes</option><option :value="4">4 huéspedes</option>
+          <option :value="6">6 huéspedes</option><option :value="8">8 huéspedes</option>
+        </select>
+      </div>
+      <button class="cta-btn" @click="buscarStays" aria-label="Comparar alojamientos">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+        Comparar alojamientos
+      </button>
+      <datalist id="destinoscl">
+        <option v-for="c in ciudades" :key="c.n" :value="c.n">{{c.pais}}</option>
+      </datalist>
+    </div>
+    <p class="qerr" v-if="sErr">{{sErr}}</p>
+    <p class="hint" v-if="sOk"><b>{{sNom}}</b> · {{dshort(sci)}} → {{dshort(sco)}} ({{noches}} noches) · {{sg}} {{sg===1?'huésped':'huéspedes'}} — desplázate por los grupos y abre el sitio que prefieras con tu búsqueda lista.</p>
+    <p class="hint">Los sitios de dueños directos no siempre aceptan fechas por enlace: ábrelos y pega tus fechas si hace falta. Nunca te cobramos nada: es un comparador.</p>
+  </div>
+</div>
+
+<section class="band" id="sitios">
+  <div class="wrap">
+    <div class="shead">
+      <h2>Tu búsqueda en 18 sitios</h2>
+      <span class="note-r" v-if="sOk">Abre cualquiera con <b>{{sNom}}</b> y tus fechas ya cargadas</span>
+      <span class="note-r" v-else>Elige destino y fechas arriba para armar los enlaces</span>
+    </div>
+
+    <template v-for="g in grupos" :key="g.t">
+      <div class="grupo">{{g.t}}</div>
+      <div class="pgrid">
+        <a class="pcard" v-for="p in g.items" :key="p.n" :href="sOk ? p.u : 'javascript:void(0)'"
+           :target="sOk ? '_blank' : null" :rel="sOk ? 'noopener nofollow' : null"
+           @click="!sOk && pedirBusqueda()">
+          <span class="own" v-if="p.own">DUEÑO DIRECTO</span>
+          <span class="ph"><span class="ic" :style="{background:p.col}">{{p.ic}}</span><b>{{p.n}}</b></span>
+          <span class="desc">{{p.d}}</span>
+          <span class="go" v-if="sOk">Abrir búsqueda ↗</span>
+          <span class="go" v-else style="color:var(--faint)">Completa el buscador ↑</span>
+        </a>
+      </div>
+    </template>
+  </div>
+</section>
+
+<section id="radar">
+  <div class="wrap">
+    <div class="shead">
+      <h2>Radar de noches en vivo · 10 destinos</h2>
+      <span class="note-r" v-if="stays">Estancia del fin de semana próximo (2 adultos) capturada con navegador real + WARP</span>
+      <span class="note-r" v-else>Primer barrido en curso…</span>
+    </div>
+    <div class="sgrid" v-if="stays && stays.destinos && stays.destinos.length">
+      <div class="scard" v-for="s in stays.destinos" :key="s.slug" :style="!s.min_clp?'opacity:.66':''">
+        <div class="top">
+          <span class="nm">{{s.nombre}}</span>
+          <span class="fl">{{s.pais==='Chile'?'🇨🇱':'🇦🇷'}}</span>
+        </div>
+        <span class="win">{{dshort(stays.ventana.checkin)}} → {{dshort(stays.ventana.checkout)}} · {{stays.ventana.noches}} noches · 2 adultos</span>
+        <div class="pr" v-if="s.min_clp"><small>NOCHE CONJUNTA DESDE ({{stays.ventana.noches}} NOCHES)</small>${{fmt(s.min_clp)}}</div>
+        <div class="pr" v-else style="color:var(--faint)"><small>SIN LECTURA ESTE CICLO</small>—</div>
+        <div class="srcchips">
+          <a class="schip src" v-if="s.despegar && s.despegar.min_clp" :href="dpStay(s)" target="_blank" rel="noopener nofollow">Despegar <b>${{fmtK(s.despegar.min_clp)}}</b></a>
+          <span class="schip" v-else>Despegar —</span>
+          <a class="schip src" v-if="s.booking && s.booking.min_clp" :href="bkStay(s)" target="_blank" rel="noopener nofollow">Booking <b>${{fmtK(s.booking.min_clp)}}</b></a>
+          <span class="schip" v-else>Booking —</span>
+        </div>
+        <span class="fresh" :class="{old:!freshTs(s.ts)}"><i></i>{{ago(s.ts)}} · radar cada ~6 h</span>
+      </div>
+    </div>
+    <div class="panel" v-else>
+      <h3>El radar de alojamientos está arrancando</h3>
+      <p class="pp">Estamos ejecutando el primer barrido de precios de noches en Despegar Hoteles y Booking para 10 destinos de Chile y Argentina (La Serena, Viña, Valdivia, Pucón, Puerto Varas, San Pedro de Atacama, Bariloche, Mendoza, Mar del Plata y Buenos Aires). Vuelve en un rato: los precios aparecerán aquí y se refrescarán automáticamente cada ~6 horas.</p>
+    </div>
+    <p style="font-size:.72rem;color:var(--faint);margin-top:12px" v-if="stays">{{stays.nota}}</p>
+  </div>
+</section>
+
+<section class="band" id="faq">
+  <div class="wrap">
+    <div class="shead"><h2>Preguntas frecuentes de alojamientos</h2></div>
+    <div class="faq">
+      <details open><summary>¿Qué significa "dueños directos"?</summary>
+        <div class="fa-body">Son publicaciones que el propio dueño administra sin intermediarios: arriendo temporal en <b>Yapo.cl</b>, <b>Portal Inmobiliario</b> y <b>MercadoLibre</b> (Chile), y <b>Argenprop</b>, <b>Zonaprop</b> y <b>MercadoLibre</b> (Argentina). Al no pagar comisión de plataforma, muchos dueños entregan mejor precio — sobre todo para estadías largas o grupos. Trátalos como cualquier arriendo: pide contrato o recibo y nunca transfieras sin señas claras.</div>
+      </details>
+      <details><summary>¿De dónde salen los precios del radar?</summary>
+        <div class="fa-body">Capturamos en vivo la estancia del fin de semana próximo (viernes a lunes, 2 adultos) en Despegar Hoteles y Booking.com usando un navegador automatizado real con salida por red residencial (WARP) — la misma técnica del radar de vuelos. Publicamos solo lecturas verificables desde la página de resultados; si la lectura no se puede verificar, mostramos "—". El resto de los 18 sitios se entrega como deep link con tu búsqueda armada: sus precios requieren sesión propia y no los inventamos.</div>
+      </details>
+      <details><summary>¿Puedo buscar cualquier fecha?</summary>
+        <div class="fa-body">Sí: check-in y check-out sin límites, cualquier destino de Chile y Argentina del buscador. El radar de precios capturados usa la ventana del fin de semana próximo para mantener la comparación justa entre destinos.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap fgrid">
+    <div>
+      <div class="flogo"><b>Radar Río</b> · Alojamientos</div>
+      <p>Comparador independiente de alojamientos en Chile y Argentina: plataformas, agencias, comparadores y canales de dueños directos, con radar de precios de noches en vivo. Los logos y marcas citadas pertenecen a sus dueños; su uso es referencial.</p>
+    </div>
+    <div>
+      <h4>Explorar</h4>
+      <a href="index.html">Buscador de vuelos</a>
+      <a href="index.html#destinos">Playas de LatAm</a>
+      <a href="index.html#cupones">Cupones activos</a>
+      <a href="#radar">Radar de noches</a>
+    </div>
+    <div>
+      <h4>Sitios incluidos</h4>
+      <a href="https://www.airbnb.cl" target="_blank" rel="noopener nofollow">Airbnb ↗</a>
+      <a href="https://www.booking.com" target="_blank" rel="noopener nofollow">Booking ↗</a>
+      <a href="https://www.despegar.cl" target="_blank" rel="noopener nofollow">Despegar ↗</a>
+      <a href="https://www.yapo.cl" target="_blank" rel="noopener nofollow">Yapo.cl (dueños) ↗</a>
+      <a href="https://www.argenprop.com" target="_blank" rel="noopener nofollow">Argenprop (dueños) ↗</a>
+    </div>
+  </div>
+  <div class="wrap fbottom">
+    <span>Transparencia: algunos enlaces pueden ser de afiliado — sin costo extra para ti.</span>
+    <span>Confirma siempre el precio final en el sitio de reserva</span>
+  </div>
+</footer>
+
+</div><!-- /app -->
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+<script>
+const {createApp} = Vue;
+const DIA = ['dom','lun','mar','mié','jue','vie','sáb'];
+const MES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+
+/* Ciudades con oferta de alojamientos (Chile + Argentina) */
+const CIUDADES = [
+  {n:'La Serena',p:'Chile',s:'la-serena'}, {n:'Viña del Mar',p:'Chile',s:'vina-del-mar'},
+  {n:'Valparaíso',p:'Chile',s:'valparaiso'}, {n:'Pucón',p:'Chile',s:'pucon'},
+  {n:'Puerto Varas',p:'Chile',s:'puerto-varas'}, {n:'Valdivia',p:'Chile',s:'valdivia'},
+  {n:'Frutillar',p:'Chile',s:'frutillar'}, {n:'San Pedro de Atacama',p:'Chile',s:'san-pedro-de-atacama'},
+  {n:'Puerto Natales',p:'Chile',s:'puerto-natales'}, {n:'Castro Chiloé',p:'Chile',s:'castro'},
+  {n:'Iquique',p:'Chile',s:'iquique'}, {n:'Santiago',p:'Chile',s:'santiago'},
+  {n:'Concepción',p:'Chile',s:'concepcion'},
+  {n:'San Carlos de Bariloche',p:'Argentina',s:'bariloche'}, {n:'Villa La Angostura',p:'Argentina',s:'villa-la-angostura'},
+  {n:'Mendoza',p:'Argentina',s:'mendoza'}, {n:'Mar del Plata',p:'Argentina',s:'mar-del-plata'},
+  {n:'Pinamar',p:'Argentina',s:'pinamar'}, {n:'Buenos Aires',p:'Argentina',s:'buenos-aires'},
+  {n:'Salta',p:'Argentina',s:'salta'}, {n:'El Calafate',p:'Argentina',s:'el-calafate'},
+  {n:'Ushuaia',p:'Argentina',s:'ushuaia'}, {n:'Córdoba',p:'Argentina',s:'cordoba'}
+];
+
+const norm = t => String(t||'').toLowerCase()
+  .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+  .replace(/ñ/g,'n').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+
+createApp({
+  data(){ return {
+    D:null, mob:false,
+    sd:'', sg:2, sDone:false, sErr:'',
+    sci:'', sco:''
+  }},
+  computed:{
+    ciudades(){ return CIUDADES; },
+    hoyISO(){ const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); },
+    sSlug(){ return norm(this.sd); },
+    sNom(){ return String(this.sd||'').trim(); },
+    noches(){ return this.sci&&this.sco?Math.max(1,Math.round((new Date(this.sco)-new Date(this.sci))/864e5)):0; },
+    sOk(){ return !!(this.sNom && this.sci && this.sco && this.noches>=1); },
+    stays(){ return (this.D&&this.D.stays)||null; },
+
+    /* 18 sitios agrupados; deep links con la búsqueda armada */
+    grupos(){
+      const d=encodeURIComponent(this.sNom), s=this.sSlug||'chile', ci=this.sci, co=this.sco, g=this.sg||2;
+      const ok=this.sOk;
+      const mk=()=>[
+        {t:'Plataformas globales',items:[
+          {n:'Airbnb',ic:'A',col:'#FF385C',d:'Departamentos y casas de dueños y anfitriones',u:`https://www.airbnb.cl/s/${s}/homes?checkin=${ci}&checkout=${co}&adults=${g}`},
+          {n:'Booking.com',ic:'B',col:'#003580',d:'Hoteles, apartamentos y hostales con reseñas',u:`https://www.booking.com/searchresults.es.html?ss=${d}&checkin=${ci}&checkout=${co}&group_adults=${g}&no_rooms=1`},
+          {n:'Vrbo',ic:'V',col:'#1a47c2',d:'Casas completas para familias y grupos',u:`https://www.vrbo.com/search?q=${d}&arrival=${ci}&departure=${co}&adults=${g}`},
+          {n:'Expedia',ic:'E',col:'#0f4c81',d:'Hoteles con paquetes vuelo+hotel',u:`https://www.expedia.cl/Hotel-Search?destination=${d}&startDate=${ci}&endDate=${co}&adults=${g}`},
+          {n:'Hotels.com',ic:'H',col:'#d32f2f',d:'Hoteles con programa de noches gratis',u:`https://cl.hotels.com/Hotel-Search?destination=${d}&startDate=${ci}&endDate=${co}&adults=${g}`},
+          {n:'Agoda',ic:'Ag',col:'#ff5b00',d:'Fuerte en Asia, buenos precios en LatAm',u:`https://www.agoda.com/search?textToSearch=${d}&checkIn=${ci}&checkOut=${co}&adults=${g}&rooms=1`},
+          {n:'Hostelworld',ic:'HW',col:'#f4581c',d:'Hostales y mochileros por cama o privada',u:`https://www.hostelworld.com/search?search_keywords=${d}&date_from=${ci}&date_to=${co}&number_of_guests=${g}`}
+        ]},
+        {t:'Agencias y comparadores',items:[
+          {n:'Despegar Hoteles',ic:'D',col:'#0a4fd9',d:'Agencia ancla del radar · precios en CLP',u:`https://www.despegar.cl/hoteles/search?destination=${s}&checkin=${ci}&checkout=${co}&adults=${g}&rooms=1`},
+          {n:'Cocha Hoteles',ic:'C',col:'#e6007e',d:'Agencia chilena con atención local',u:`https://www.cocha.com/hoteles?destination=${d}&checkin=${ci}&checkout=${co}`},
+          {n:'Trivago',ic:'T',col:'#f18d0e',d:'Comparador de tarifas de hotel',u:`https://www.trivago.cl/es/srl?query=${d}&checkin=${ci}&checkout=${co}`},
+          {n:'Kayak',ic:'K',col:'#ff690f',d:'Metebuscador con historial de precios',u:`https://www.kayak.cl/hotels/${s}/${ci}/${co}/${g}adults`},
+          {n:'Google Hoteles',ic:'G',col:'#1a73e8',d:'Comparador de Google con mapa',u:`https://www.google.com/travel/hotels?q=${d}&checkin=${ci}&checkout=${co}&hl=es-CL`}
+        ]},
+        {t:'Dueños directos · Chile',items:[
+          {n:'Yapo.cl',ic:'Y',col:'#00a650',d:'Avisos de arriendo temporal publicados por dueños',own:true,u:`https://www.yapo.cl/chile?q=${d}%20arriendo%20temporal`},
+          {n:'Portal Inmobiliario',ic:'PI',col:'#003399',d:'Arriendos publicados por dueños e inmobiliarias',own:true,u:`https://www.portalinmobiliario.com/arriendo?q=${d}`},
+          {n:'MercadoLibre Chile',ic:'M',col:'#ffe600',d:'Alojamientos y arriendos por días',own:true,u:`https://listado.mercadolibre.cl/${s}-arriendo-por-dias`}
+        ]},
+        {t:'Dueños directos · Argentina',items:[
+          {n:'Argenprop',ic:'AP',col:'#00a650',d:'Alquiler temporario publicado por dueños',own:true,u:`https://www.argenprop.com/departamentos-alquiler-temporal-${s}`},
+          {n:'Zonaprop',ic:'Z',col:'#4a90d9',d:'Alquiler temporario en todo Argentina',own:true,u:`https://www.zonaprop.com.ar/departamentos/alquiler-temporal-${s}.html`},
+          {n:'MercadoLibre Argentina',ic:'M',col:'#ffe600',d:'Alojamientos y alquiler temporario',own:true,u:`https://listado.mercadolibre.com.ar/${s}-alquiler-temporario`}
+        ]}
+      ].map(gr=>({...gr, items:gr.items.map(it=>ok?it:{...it,u:'#'})}));
+      return mk();
+    }
+  },
+  methods:{
+    fmt(n){ return (n==null||isNaN(n))?'—':Math.round(n).toLocaleString('es-CL'); },
+    fmtK(n){ return (n==null||isNaN(n))?0:Math.round(n/1000).toLocaleString('es-CL'); },
+    dshort(iso){ if(!iso) return ''; const d=new Date(iso+'T12:00:00'); return `${DIA[d.getDay()]} ${d.getDate()} ${MES[d.getMonth()]}`; },
+    ago(ts){ if(!ts) return '—'; const t=Date.parse(String(ts).replace(' ','T')+'Z'); if(!isFinite(t)) return String(ts);
+      const m=Math.max(0,Math.round((Date.now()-t)/6e4));
+      if(m<1) return 'ahora'; if(m<60) return 'hace '+m+' min';
+      const h=Math.round(m/60); if(h<24) return 'hace '+h+' h';
+      return 'hace '+Math.round(h/24)+' d'; },
+    freshTs(ts){ if(!ts) return false; const t=Date.parse(String(ts).replace(' ','T')+'Z'); return isFinite(t)&&(Date.now()-t)<26*3600e3; },
+    dpStay(s){ const v=this.stays.ventana||{}; return `https://www.despegar.cl/hoteles/search?destination=${s.slug}&checkin=${v.checkin||this.sci}&checkout=${v.checkout||this.sco}&adults=2&rooms=1&distribution=2`; },
+    bkStay(s){ const v=this.stays.ventana||{}; return `https://www.booking.com/searchresults.es.html?ss=${encodeURIComponent(s.nombre)}&checkin=${v.checkin||this.sci}&checkout=${v.checkout||this.sco}&group_adults=2&no_rooms=1&selected_currency=CLP`; },
+    pedirBusqueda(){ this.sErr='Elige destino y fechas (check-in y check-out) arriba: con eso armamos los 18 enlaces.'; },
+    buscarStays(){
+      this.sErr='';
+      if(!this.sNom){ this.sErr='Escribe un destino (ej: Pucón o Bariloche).'; return; }
+      if(!this.sci||!this.sco){ this.sErr='Elige check-in y check-out — cualquier fecha, sin límites.'; return; }
+      if(this.sco<=this.sci){ this.sErr='El check-out debe ser posterior al check-in.'; return; }
+      this.sDone=true;
+      try{ const el=document.getElementById('sitios'); if(el&&el.scrollIntoView) el.scrollIntoView({behavior:'smooth',block:'start'}); }catch(e){}
+    }
+  },
+  async mounted(){
+    try{
+      const r = await fetch('data.json?t='+Date.now(), {cache:'no-store'});
+      this.D = await r.json();
+    }catch(e){ console.error('data.json', e); }
+    /* fechas por defecto: fin de semana próximo (viernes→lunes), igual que el radar */
+    try{
+      const hoy=new Date(); const add=n=>new Date(hoy.getTime()+n*864e5);
+      const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+      const aVie=n=>{ const d=add(n); while(d.getDay()!==5) d.setDate(d.getDate()+1); return d; };
+      const vi=aVie(1), lu=new Date(vi.getTime()+3*864e5);
+      this.sci=iso(vi); this.sco=iso(lu);
+    }catch(e){}
+  }
+}).mount('#app');
+</script>
+</body>
+</html>

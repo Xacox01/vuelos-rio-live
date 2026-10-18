@@ -43,20 +43,29 @@ jobs:
 
       - name: activar WARP (egress IP consumidor para OTAs/DataDome)
         run: |
-          # Solo levantar el túnel si el escaneo OTA vence en este ciclo (ahorra ~4 min/ciclo)
+          # Solo levantar el túnel si el escaneo OTA O el radar de alojamientos
+          # vencen en este ciclo (ahorra ~4 min/ciclo)
           DUE=$(python3 -c '
           import json, datetime, os
+          due = False
           try:
               d = json.load(open("data.json"))
+              now = datetime.datetime.now()
               t = datetime.datetime.strptime(str(d.get("ota_ts",""))[:19], "%Y-%m-%d %H:%M:%S")
               gap = int(os.environ.get("OTAS_GAP", "1800"))
-              due = (datetime.datetime.now() - t).total_seconds() >= gap
+              due = (now - t).total_seconds() >= gap
           except Exception:
               due = True
+          try:
+              ts = str((d.get("stays") or {}).get("ts",""))[:19]
+              t2 = datetime.datetime.strptime(ts, "%Y-%m-%d %H:%M:%S")
+              due = due or (now - t2).total_seconds() >= int(os.environ.get("STAYS_GAP", "21600"))
+          except Exception:
+              pass
           print("yes" if due else "no")
           ')
           if [ "$DUE" != "yes" ]; then
-            echo "Escaneo OTA no vence este ciclo — WARP omitido"
+            echo "Escaneo OTA ni radar de alojamientos vencen este ciclo — WARP omitido"
             exit 0
           fi
           chmod +x warp_boot.sh
@@ -68,6 +77,12 @@ jobs:
           OTAS_GAP: "1800"
           OTA_PROXY: ${{ env.OTA_PROXY }}
         run: python scraper.py
+
+      - name: refrescar radar de alojamientos (gate interno 6 h, comparte túnel WARP)
+        env:
+          OTA_PROXY: ${{ env.OTA_PROXY }}
+        run: |
+          python3 fetch_stays.py || echo "::warning::radar de alojamientos falló (no bloquea publicación)"
 
       - name: refrescar cupones (gate 6 h)
         run: |

@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-"""Scraper de GitHub Actions: SCL⇄Río ene–feb 2027.
-Consulta fuentes oficiales (JetSMART availability API, SKY Sputnik),
-referencias (Falabella SSR, espejo Google/LATAM) y escribe data.json
-SOLO si los precios clave cambiaron (para no inflar el historial git).
+"""Scraper de GitHub Actions: radar de vuelos con VENTANA RODANTE.
+Sin temporadas fijas: cada corrida captura los próximos ~75 días (la ventana
+avanza sola cada día, por lo que el calendario del sitio nunca queda "vencido").
+Consulta fuentes oficiales (JetSMART availability API, SKY Sputnik, LATAM BFF,
+Cocha GraphQL) + agencias con bypass DataDome (Despegar/Falabella vía Camoufox
++WARP) y escribe data.json SOLO si los precios clave cambiaron.
 """
 import json, os, re, sys, time, datetime, traceback, csv
 
@@ -12,9 +14,18 @@ DATA = os.path.join(BASE, "data.json")
 SKY_KEY = "HeQpRjsFI5xlAaSx2onkjc1HTK0ukqA1IrVvd5fvaMhNtzLTxInTpeYB1MK93pah"
 SKY_HIST = "https://openair-california.airtrfx.com/airfare-sputnik-service/v3/h2/fares/histogram-distribution"
 JS_AVAIL = "https://origin.jsrtff.it.jetsm.art/availability/plain"
-WIN_LO, WIN_HI = "2027-01-01", "2027-02-28"
-RET_LIMIT = "2027-02-23"
-CARNAVAL = ("2027-02-04", "2027-02-13")
+# ---- Ventana rodante (sin límites de fechas fijas) ----
+# WIN_LO = hoy, WIN_HI = hoy + 75 días: el radar siempre mira hacia adelante.
+_TODAY = datetime.date.today()
+WIN_LO = _TODAY.isoformat()
+WIN_HI = (_TODAY + datetime.timedelta(days=75)).isoformat()
+RET_LIMIT = (_TODAY + datetime.timedelta(days=70)).isoformat()
+# La exclusión de Carnaval era una calibración de la temporada ene–feb 2027;
+# con ventana rodante se desactiva (rango imposible → nunca filtra).
+CARNAVAL = ("2099-01-01", "2099-01-02")
+
+def _d(days):
+    return (_TODAY + datetime.timedelta(days=days)).isoformat()
 
 try:
     from curl_cffi import requests as cr
@@ -42,7 +53,7 @@ def fetch_jetsmart():
                 continue
             dt = leg.get("date", "")
             fecha, hora = dt[:10], dt[11:16]
-            if not (WIN_LO <= fecha <= "2027-03-05"):
+            if not (WIN_LO <= fecha <= WIN_HI):
                 continue
             vuelo = "JA" + str(leg.get("fn", ""))
             clp = (leg.get("pi") or {}).get("clp")
@@ -96,13 +107,13 @@ def best_combos(idas, vues, n=1):
         vby[k].sort(key=lambda r: r[0])
     combos = []
     for i in idas:
-        if not ("2027-01-05" <= i["fecha"] <= "2027-02-12"):
+        if not (WIN_LO <= i["fecha"] <= WIN_HI):
             continue
         ci = alloc(i.get("bk") or [[i["clp"], 9, "?"]], n)
         if ci is None:
             continue
         d0 = datetime.date.fromisoformat(i["fecha"])
-        for stay in range(9, 13):
+        for stay in range(6, 17):
             rd = (d0 + datetime.timedelta(days=stay)).isoformat()
             if rd > RET_LIMIT or (CARNAVAL[0] <= rd <= CARNAVAL[1]):
                 continue
@@ -128,8 +139,8 @@ def fetch_sky():
     t0 = time.time()
     b = {"autoSettings": {"language": "es", "market": "cl"},
          "origin": "SCL", "destination": "GIG", "journeyType": "ROUND_TRIP",
-         "departure": {"start": "2027-01-01", "end": "2027-02-14"},
-         "tripDuration": {"minimum": 9, "maximum": 12},
+         "departure": {"start": WIN_LO, "end": (_TODAY + datetime.timedelta(days=45)).isoformat()},
+         "tripDuration": {"minimum": 6, "maximum": 16},
          "interval": "1d", "faresLimit": 8,
          "priceBuckets": {"active": True, "field": "TOTAL_PRICE"}}
     H = {"em-api-key": SKY_KEY, "Content-Type": "application/json",
@@ -147,8 +158,9 @@ def fetch_sky():
 
 # ---------------- Falabella (referencia cacheada SSR) ----------------
 # GIG = código IATA del aeropuerto de Galeão: "RIO" redirige a la home del router.
-FAL_DATES = [("SCL", "GIG", d) for d in ("2027-01-06", "2027-01-20", "2027-01-22")] + \
-            [("GIG", "SCL", d) for d in ("2027-02-01", "2027-02-08")]
+# Fechas rodantes: 3 idas + 2 vueltas dentro de la ventana (hoy → +75 días).
+FAL_DATES = [("SCL", "GIG", _d(n)) for n in (10, 17, 31)] + \
+            [("GIG", "SCL", _d(n)) for n in (17, 38)]
 
 def fetch_falabella():
     rows = []
@@ -202,8 +214,7 @@ def glink(dep, ret):
                                seat="economy", trip="round_trip", max_stops=0)
     return "https://www.google.com/travel/flights?tfs=" + t + "&hl=es&gl=cl&curr=CLP"
 
-GF_WINDOWS = [("2027-01-13", "2027-01-22"), ("2027-01-22", "2027-02-01"),
-              ("2027-01-20", "2027-01-29"), ("2027-02-08", "2027-02-17")]
+GF_WINDOWS = [(_d(12), _d(21)), (_d(21), _d(30)), (_d(10), _d(19)), (_d(38), _d(47))]
 
 def fetch_google(cycle):
     dep, ret = GF_WINDOWS[cycle % len(GF_WINDOWS)]
@@ -231,11 +242,21 @@ def _latam_headers():
             "x-latam-action-name": "home-homepage-web-customer.searchbox_calendar.load",
             "Accept": "application/json"}
 
+def _latam_months():
+    """Meses a escanear en el calendario BFF de LATAM: cubren la ventana rodante
+    (hoy → +75 días) calculados en vivo, sin años fijos."""
+    ms = []
+    for k in (0, 1, 2):
+        dt = _TODAY + datetime.timedelta(days=30 * k)
+        if (dt.month, dt.year) not in ms:
+            ms.append((dt.month, dt.year))
+    return ms
+
 def _latam_cal(o, d):
     dias = {}
-    for m in (1, 2):
+    for m, y in _latam_months():
         u = (f"https://www.latamairlines.com/bff/web-products-searchbox/v1/calendar?"
-             f"origin={o}&destination={d}&month={m}&year=2027&isRoundTrip=false&extended=true&directFlights=true")
+             f"origin={o}&destination={d}&month={m}&year={y}&isRoundTrip=false&extended=true&directFlights=true")
         r = cr.get(u, impersonate="chrome", timeout=30, headers=_latam_headers())
         r.raise_for_status()
         for day in r.json().get("days", []):
@@ -253,10 +274,10 @@ def fetch_latam():
     inn = _latam_cal("GIG", "SCL")
     combos = []
     for ida, vo in out.items():
-        if not ("2027-01-05" <= ida <= "2027-02-12"):
+        if not (WIN_LO <= ida <= WIN_HI):
             continue
         d0 = datetime.date.fromisoformat(ida)
-        for stay in range(9, 13):
+        for stay in range(6, 17):
             rd = (d0 + datetime.timedelta(days=stay)).isoformat()
             if rd > RET_LIMIT or (CARNAVAL[0] <= rd <= CARNAVAL[1]) or rd not in inn:
                 continue
@@ -328,7 +349,8 @@ COCHA_Q = ("query funcion($channel: Channel!, $searchType: SearchType!, $cabinTy
 AER = {"H2": "SKY", "JA": "JetSMART", "LA": "LATAM", "G3": "GOL", "AR": "Aerolíneas Argentinas",
        "CM": "Copa", "AV": "Avianca", "IB": "Iberia", "AM": "Aeroméxico", "DL": "Delta",
        "UA": "United", "EK": "Emirates", "LU": "LATAM", "H2": "SKY"}
-COCHA_VENTANAS = [("2027-01-02", "2027-02-01"), ("2027-01-22", "2027-02-01"), ("2027-01-10", "2027-01-20")]
+# Ventanas rodantes (ida, vuelta): 29, 9 y 10 noches — siempre a futuro.
+COCHA_VENTANAS = [(_d(2), _d(31)), (_d(22), _d(31)), (_d(10), _d(20))]
 _cocha_last = [0.0]
 
 _cocha_sess_cache = {"init": False, "sess": None}
@@ -567,7 +589,7 @@ PLAYAS_DEST = [("GIG", "Río de Janeiro", "Brasil", "🇧🇷"),
                ("LIR", "Liberia · Guanacaste", "Costa Rica", "🇨🇷"),
                ("SJO", "San José · Jacó/Manuel Antonio", "Costa Rica", "🇨🇷"),
                ("PTY", "Panamá · Playa Blanca", "Panamá", "🇵🇦")]
-PLAYAS_WIN = [("2027-01-22", "2027-02-01"), ("2027-01-10", "2027-01-20"), ("2027-01-02", "2027-02-01")]
+PLAYAS_WIN = [(_d(22), _d(31)), (_d(10), _d(19)), (_d(2), _d(31))]
 PLAYAS_BUDGET = 500000
 
 def agencia_rt(dest, ida, vuelta):
@@ -595,9 +617,11 @@ def fetch_playas(prev, cycle):
     out = []
     for cod, ciudad, pais, flag in PLAYAS_DEST:
         pd = prev_dest.get(cod) or {}
-        # descarta ventanas legadas del metebuscador Skiplagged (fuente retirada)
+        # descarta ventanas fuera de la ventana rodante (fechas vencidas o
+        # legado de la temporada ene–feb 2027)
         wprev = {f"{w['ida']}_{w['vuelta']}": w for w in (pd.get("windows") or [])
-                 if "skiplagged.com" not in str(w.get("link") or "")}
+                 if "skiplagged.com" not in str(w.get("link") or "")
+                 and str(w.get("ida") or "") >= WIN_LO}
         for ida, vuelta in wins:
             try:
                 res = agencia_rt(cod, ida, vuelta)
@@ -631,7 +655,7 @@ def fetch_playas(prev, cycle):
         raise RuntimeError("playas sin resultados")
     return {"destinos": out, "fx": round(fx, 2), "budget": PLAYAS_BUDGET,
             "ventanas": [f"{a} → {b}" for a, b in PLAYAS_WIN],
-            "nota": "Cotización en vivo de Cocha (agencia chilena) — el precio final puede variar ~10% al reservar. Mismas reglas del viaje: ene–feb 2027, ≥9 noches, regreso ≤ 23-feb."}
+            "nota": "Cotización en vivo de Cocha (agencia chilena) — el precio final puede variar ~10% al reservar. Ventana rodante: siempre los próximos ~75 días, estancias de 6+ noches."}
 
 def minimos_de(live):
     """Mejor precio por serie para comparar entre ciclos (alimenta alertas)."""

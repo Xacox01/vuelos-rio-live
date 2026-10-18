@@ -5,12 +5,12 @@
 <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Radar Río · Vuelos SCL⇄Río de Janeiro al mejor precio">
-<meta property="og:description" content="Escaneamos fuentes cada 5 minutos y alertamos bajadas de precio. Vuelos en vivo, playas y cupones.">
+<meta property="og:title" content="Radar Río · Los vuelos más baratos a cualquier destino">
+<meta property="og:description" content="Busca cualquier destino en cualquier fecha y comparamos 11 sitios a la vez. Radar en vivo SCL⇄Río + 16 playas de LatAm, cupones, alojamientos y alertas de bajadas.">
 <meta property="og:image" content="https://xacox01.github.io/vuelos-rio-live/assets/brand/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="description" content="Vuelos Santiago ⇄ Río de Janeiro ene–feb 2027 al precio real de hoy: JetSMART, SKY, LATAM, Despegar, Viajes Falabella y Cocha comparados automáticamente cada 5 minutos, más enlaces a Atrápalo, Turismocity, Decolar, eDreams y Kiwi. 16 destinos de playa bajo $500.000 y cupones activos.">
-<title>Radar Río · Vuelos SCL⇄Río de Janeiro al mejor precio · ene–feb 2027</title>
+<meta name="description" content="Buscador de vuelos sin límites de fechas: cualquier destino, ida o ida y vuelta, comparado en 11 sitios (JetSMART, SKY, LATAM, Despegar, Falabella, Cocha, Decolar, Atrápalo, Kiwi, Skyscanner, Google Flights). Radar en vivo de precios, alertas de bajadas, cupones y alojamientos en Chile y Argentina.">
+<title>Radar Río · Vuelos baratos a cualquier destino · radar en vivo</title>
 <style>
 /* ============================================================
    RADAR RÍO — sistema de diseño plano estilo OTA real
@@ -96,6 +96,26 @@ nav.mob a:last-child{border-bottom:0}
 .swap{width:30px;height:30px;border:1px solid var(--line2);border-radius:50%;display:grid;place-items:center;background:var(--bg);flex:0 0 auto}
 .swap svg{width:13px;height:13px}
 .cta-btn{background:var(--cta);color:#fff;border:0;font-weight:800;font-size:.95rem;padding:0 34px;border-radius:0 0;display:inline-flex;align-items:center;gap:9px;transition:.15s;flex:0 0 auto}
+/* buscador universal: cualquier origen/destino/fecha */
+.search{flex-wrap:wrap}
+.search input{border:0;background:transparent;font:inherit;font-weight:700;color:var(--ink);padding:0;outline:none;width:100%}
+.search input::placeholder{color:var(--faint);font-weight:600}
+.search input[type=date]{font-size:.88rem}
+.sf.grow{flex:1 1 200px}
+.sf.mid{flex:1 1 150px}
+.swap2{align-self:center;margin:0 -2px;border:1px solid var(--line2);background:var(--bg);border-radius:50%;width:30px;height:30px;font-weight:800;color:var(--ink2);cursor:pointer;flex:0 0 auto}
+.swap2:hover{border-color:var(--cta);color:var(--cta)}
+.qres{background:var(--white);border:1px solid var(--line2);border-radius:var(--r2);box-shadow:var(--sh2);margin-top:14px;padding:16px 18px}
+.qres .qh{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.qres .qh b{font-size:.95rem}
+.qres .qh small{color:var(--mut)}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:8px}
+.qcard{border:1px solid var(--line2);border-radius:var(--r2);padding:10px 12px;display:flex;flex-direction:column;gap:3px;color:var(--ink);text-decoration:none;transition:.15s;background:var(--bg)}
+.qcard:hover{border-color:var(--cta);background:#fff}
+.qcard b{font-size:.88rem}
+.qcard span{font-size:.7rem;color:var(--mut);line-height:1.35}
+.qcard i{font-style:normal;font-size:.72rem;font-weight:800;color:var(--cta);margin-top:2px}
+.qerr{color:#c0392b;font-weight:700;font-size:.82rem;margin-top:10px}
 .cta-btn:hover{background:var(--cta-d)}
 .cta-btn svg{width:17px;height:17px}
 @media(max-width:860px){
@@ -331,10 +351,10 @@ footer .flogo b{color:#fff;font-size:1rem}
       <span><b>Radar Río</b><small>ESCANEO EN VIVO · MEJOR PRECIO</small></span>
     </a>
     <nav class="desk">
+      <a href="index.html">Vuelos</a>
+      <a href="alojamientos.html">Alojamientos</a>
       <a href="#hoy">Precios hoy</a>
-      <a href="#vuelos">Vuelos</a>
       <a href="#calendario">Calendario</a>
-      <a href="#ofertas">Ofertas</a>
       <a href="#destinos">Destinos</a>
       <a href="#cupones">Cupones<span class="n" v-if="cuponesVisibles.length">{{cuponesVisibles.length}}</span></a>
       <a href="#alertas">Alertas</a>
@@ -346,10 +366,10 @@ footer .flogo b{color:#fff;font-size:1rem}
     </div>
   </div>
   <nav class="mob" :class="{open:mob}">
+    <a href="alojamientos.html" @click="mob=false">Alojamientos</a>
     <a href="#hoy" @click="mob=false">Precios hoy</a>
-    <a href="#vuelos" @click="mob=false">Vuelos</a>
+    <a href="#vuelos" @click="mob=false">Combinaciones</a>
     <a href="#calendario" @click="mob=false">Calendario</a>
-    <a href="#ofertas" @click="mob=false">Ofertas</a>
     <a href="#destinos" @click="mob=false">Destinos de playa</a>
     <a href="#cupones" @click="mob=false">Cupones</a>
     <a href="#alertas" @click="mob=false">Alertas</a>
@@ -360,42 +380,65 @@ footer .flogo b{color:#fff;font-size:1rem}
 <!-- ================= HERO + BUSCADOR ================= -->
 <div class="hero" id="top">
   <div class="wrap">
-    <h1 v-if="D">Vuela a Río de Janeiro desde <span class="pr">{{fmt(minimo)}}</span> ida y vuelta</h1>
+    <h1 v-if="D">Cualquier destino, cualquier fecha, <span class="pr">el precio más barato</span></h1>
     <h1 v-else>Buscando los mejores precios…</h1>
-    <p class="sub">Comparamos en vivo los precios de JetSMART, SKY, LATAM, Despegar, Viajes Falabella y Cocha para enero y febrero 2027, y te damos enlaces directos a Atrápalo, Turismocity, Decolar, eDreams y Kiwi con tus fechas. Sin registrarte, sin spam: precios reales actualizados automáticamente cada 5 minutos.</p>
+    <p class="sub">Busca vuelos a <b>cualquier destino</b> del mundo en <b>cualquier fecha</b> (ida, vuelta o ida y vuelta, sin límites) y armamos tu búsqueda en 11 sitios a la vez: JetSMART, SKY, LATAM, Despegar, Viajes Falabella, Cocha, Decolar, Atrápalo, Kiwi, Skyscanner y Google Flights. Además, un radar en vivo vigila Santiago ⇄ Río de Janeiro y 16 playas de Latinoamérica cada 5 minutos para avisarte de las bajadas. Sin registrarte, sin spam.</p>
 
     <div class="search" role="search">
-      <div class="sf route">
-        <label>Ruta</label>
-        <div class="v">Santiago <small>SCL</small>
-          <span class="swap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#5e6d85" stroke-width="2.4"><path d="M7 4v13m0 0-3-3m3 3 3-3M17 20V7m0 0-3 3m3-3 3 3"/></svg></span>
-          Río de Janeiro <small>GIG</small>
-        </div>
+      <div class="sf grow">
+        <label>Origen</label>
+        <input v-model="qOri" list="aeropuertos" placeholder="Santiago (SCL)" aria-label="Aeropuerto de origen">
       </div>
-      <div class="sf">
+      <button class="swap2" @click="swapOriDst" aria-label="Intercambiar origen y destino">⇄</button>
+      <div class="sf grow">
+        <label>Destino</label>
+        <input v-model="qDst" list="aeropuertos" placeholder="Cualquier destino (ej: Río GIG)" aria-label="Aeropuerto de destino">
+      </div>
+      <div class="sf mid">
+        <label>Tipo de viaje</label>
+        <select v-model="qTrip"><option value="rt">Ida y vuelta</option><option value="ow">Solo ida</option></select>
+      </div>
+      <div class="sf mid"><label>Ida</label><input type="date" v-model="qFi" :min="hoyISO" aria-label="Fecha de ida"></div>
+      <div class="sf mid" v-if="qTrip==='rt'"><label>Vuelta</label><input type="date" v-model="qFf" :min="qFi" aria-label="Fecha de vuelta"></div>
+      <div class="sf mid">
         <label>Pasajeros</label>
         <select v-model.number="pax">
           <option :value="1">1 adulto</option><option :value="2">2 adultos</option>
           <option :value="4">4 adultos</option><option :value="5">5 adultos</option><option :value="9">Grupo 9</option>
         </select>
       </div>
-      <div class="sf">
-        <label>Fechas sugeridas</label>
-        <select v-model="selWin">
-          <option v-for="(w,i) in ventanasTop" :key="i" :value="i">{{w.label}} · desde {{fmt(w.clp)}}</option>
-        </select>
-      </div>
-      <button class="cta-btn" @click="buscar" aria-label="Buscar vuelos">
+      <button class="cta-btn" @click="buscarUniversal" aria-label="Buscar el vuelo más barato">
         <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
-        Buscar vuelos
+        Buscar el más barato
       </button>
+      <datalist id="aeropuertos">
+        <option v-for="a in aeropuertos" :key="a.i" :value="a.c + ' (' + a.i + ')'">{{a.p}}</option>
+      </datalist>
     </div>
+
+    <div class="qres" id="qres" v-if="qDone">
+      <div class="qh">
+        <b>{{aerNom(qOriIata)}} ⇄ {{aerNom(qDstIata)}} · {{qTrip==='rt' ? dshort(qFi)+' → '+dshort(qFf) : 'solo ida '+dshort(qFi)}}</b>
+        <small>{{sitiosBusqueda.length}} sitios comparados con tu búsqueda ya armada · {{pax}} {{pax===1?'adulto':'adultos'}}</small>
+      </div>
+      <div class="qgrid">
+        <a class="qcard" v-for="s in sitiosBusqueda" :key="s.n" :href="s.u" target="_blank" rel="noopener nofollow">
+          <b>{{s.n}}</b><span>{{s.d}}</span><i>Abrir búsqueda ↗</i>
+        </a>
+      </div>
+      <div class="qchips" v-if="flexFechas.length" style="margin-top:12px">
+        <span class="lab">Fechas flexibles (±3 días, misma estadía):</span>
+        <a class="chip" v-for="f in flexFechas" :key="f.k" :href="f.u" target="_blank" rel="noopener nofollow">{{f.label}}</a>
+      </div>
+    </div>
+    <p class="qerr" v-if="qErr">{{qErr}}</p>
 
     <div class="qchips" v-if="D">
       <span class="lab">Atajos:</span>
       <a class="chip" v-for="(w,i) in ventanasTop.slice(0,3)" :key="i" :href="w.url||dpRT(w.ida,w.vuelta)" target="_blank" rel="noopener">
         {{w.label}} <b>{{fmt(w.clp)}}</b> <small style="opacity:.65">· {{w.src}}</small>
       </a>
+      <a class="chip" href="alojamientos.html" style="border-color:var(--cta);color:var(--cta)">¿Y el alojamiento? Compara 18 sitios en Chile y Argentina ↗</a>
       <a class="chip" :href="'https://www.google.com/travel/flights?q=Vuelos%20a%20R%C3%ADo%20de%20Janeiro%20desde%20Santiago'" target="_blank" rel="noopener">Comparar en Google Flights ↗</a>
     </div>
   </div>
@@ -466,7 +509,7 @@ footer .flogo b{color:#fff;font-size:1rem}
   <div class="wrap">
     <div class="shead">
       <h2>¿Qué día conviene volar?</h2>
-      <span class="note-r">Precio mínimo de tramo suelto por fecha · toca un día para ver ese tramo en Despegar</span>
+      <span class="note-r">Calendario rodante: siempre los próximos meses con datos capturados · toca un día para ver ese tramo en Despegar</span>
     </div>
     <div class="cals">
       <div class="cal" v-for="m in calendarios" :key="m.nombre">
@@ -534,7 +577,7 @@ footer .flogo b{color:#fff;font-size:1rem}
 <section id="destinos">
   <div class="wrap">
     <div class="shead">
-      <h2>16 playas de Latinoamérica bajo tu presupuesto</h2>
+      <h2>Playas de Latinoamérica bajo tu presupuesto</h2>
       <span class="note-r" v-if="D">Tope de gasto: <b>${{fmt(D.fuentes.playas.budget)}}</b> por pasaje · solo {{destinosEnPresupuesto}} de {{destinos.length}} caben hoy</span>
     </div>
     <div class="dgrid">
@@ -667,6 +710,12 @@ footer .flogo b{color:#fff;font-size:1rem}
       <details><summary>¿Por qué el precio cambia al llegar al sitio de la aerolínea?</summary>
         <div class="fa-body">Los precios de vuelos son dinámicos: cambian por disponibilidad, tarifa residual y moneda. Mostramos el mínimo capturado en el último ciclo; al reservar puede variar unos pesos hacia arriba o abajo. Por eso mostramos varias fuentes: si dos sitios coinciden (suele pasar con Despegar y Falabella, comparten inventario), ese precio es sólido. En Despegar y Falabella solo publicamos precios que podemos rastrear hasta la grilla de fechas de la propia OTA o hasta su API de búsqueda: si la lectura no se puede verificar, no se publica.</div>
       </details>
+      <details><summary>¿Hasta qué fecha puedo buscar? ¿Hay límites?</summary>
+        <div class="fa-body">No. El buscador acepta <b>cualquier fecha a futuro</b> (ida, vuelta o ida y vuelta) y <b>cualquier destino</b>: te llevamos con la búsqueda ya armada a 11 sitios. Lo que sí es importante distinguir: los precios que el <b>radar en vivo</b> muestra capturados (Santiago ⇄ Río y playas) cubren la <b>ventana rodante de los próximos ~75 días</b>, que avanza sola cada día — así el calendario nunca queda vencido. Para fechas muy lejanas, el botón de comparar abre tu búsqueda exacta en cada sitio y ahí ves el precio real del día.</div>
+      </details>
+      <details><summary>¿Cómo funcionan los alojamientos?</summary>
+        <div class="fa-body">Tenemos una <b>zona de alojamientos</b> (botón «Alojamientos» en el menú): eliges destino, check-in/check-out y huéspedes, y armamos tu búsqueda en <b>18 sitios</b> — plataformas (Airbnb, Booking, Vrbo, Expedia, Hotels.com, Agoda, Hostelworld), agencias y comparadores (Despegar, Cocha, Trivago, Kayak, Google Hoteles) y <b>canales de dueños directos</b> (Yapo.cl, Portal Inmobiliario, MercadoLibre en Chile; Argenprop, Zonaprop y MercadoLibre en Argentina). Además un radar captura precios reales de noches en Despegar Hoteles y Booking para 10 destinos de Chile y Argentina.</div>
+      </details>
       <details><summary>¿Cómo uso un cupón?</summary>
         <div class="fa-body">Toca "Copiar" en el código, reserva normalmente en el sitio del comercio y pega el código en el campo "¿Tienes un cupón?" del checkout antes de pagar. Los que dicen "Activar oferta" no llevan código: el descuento ya está aplicado en el enlace. Revisa siempre las condiciones (medios de pago, fechas de viaje, stock).</div>
       </details>
@@ -690,15 +739,16 @@ footer .flogo b{color:#fff;font-size:1rem}
   <div class="wrap fgrid">
     <div>
       <div class="flogo"><span class="sq"><svg viewBox="0 0 32 32" fill="none" style="width:16px;height:16px"><path d="M6 20.5 24.5 9l-5.6 15-3.4-5.4L6 20.5z" fill="#0062e3"/></svg></span><b>Radar Río</b></div>
-      <p>Radar independiente de precios de vuelos Santiago ⇄ Río de Janeiro y playas de Latinoamérica para el verano 2027. Datos públicos de aerolíneas, metebuscadores y agencias, consolidados automáticamente.</p>
+      <p>Radar independiente de precios de vuelos a cualquier destino (con radar en vivo Santiago ⇄ Río de Janeiro y playas de Latinoamérica) y comparador de alojamientos en Chile y Argentina. Datos públicos de aerolíneas, metebuscadores y agencias, consolidados automáticamente.</p>
       <p style="font-size:.68rem;opacity:.75">Fotografías de destinos: Wikimedia Commons (ver assets/dest/CREDITS.txt). Logos y marcas citadas pertenecen a sus dueños; su uso es referencial.</p>
     </div>
     <div>
       <h4>Explorar</h4>
+      <a href="index.html">Buscador de vuelos</a>
+      <a href="alojamientos.html">Alojamientos Chile y Argentina</a>
       <a href="#hoy">Precios de hoy</a>
       <a href="#vuelos">Mejores combinaciones</a>
       <a href="#calendario">Calendario de precios</a>
-      <a href="#ofertas">Ofertas de la semana</a>
       <a href="#destinos">Destinos de playa</a>
       <a href="#cupones">Cupones activos</a>
     </div>
@@ -738,14 +788,124 @@ const {createApp} = Vue;
 const DIA = ['dom','lun','mar','mié','jue','vie','sáb'];
 const MES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
 const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+/* Aeropuertos del buscador universal (cualquier origen/destino).
+   i=IATA, c=ciudad, p=país, s=slug ciudad (Atrápalo/Kiwi), cs=slug país (Kiwi). */
+const AEROPUERTOS = [
+ {i:'SCL',c:'Santiago',p:'Chile',s:'santiago',cs:'chile'},
+ {i:'ANF',c:'Antofagasta',p:'Chile',s:'antofagasta',cs:'chile'},
+ {i:'IQQ',c:'Iquique',p:'Chile',s:'iquique',cs:'chile'},
+ {i:'CJC',c:'Calama',p:'Chile',s:'calama',cs:'chile'},
+ {i:'LSC',c:'La Serena',p:'Chile',s:'la-serena',cs:'chile'},
+ {i:'ZCO',c:'Valdivia',p:'Chile',s:'valdivia',cs:'chile'},
+ {i:'PMC',c:'Puerto Montt',p:'Chile',s:'puerto-montt',cs:'chile'},
+ {i:'PUQ',c:'Punta Arenas',p:'Chile',s:'punta-arenas',cs:'chile'},
+ {i:'EZE',c:'Buenos Aires Ezeiza',p:'Argentina',s:'buenos-aires',cs:'argentina'},
+ {i:'AEP',c:'Buenos Aires Aeroparque',p:'Argentina',s:'buenos-aires',cs:'argentina'},
+ {i:'BRC',c:'Bariloche',p:'Argentina',s:'bariloche',cs:'argentina'},
+ {i:'MDZ',c:'Mendoza',p:'Argentina',s:'mendoza',cs:'argentina'},
+ {i:'MDP',c:'Mar del Plata',p:'Argentina',s:'mar-del-plata',cs:'argentina'},
+ {i:'COR',c:'Córdoba',p:'Argentina',s:'cordoba',cs:'argentina'},
+ {i:'ROS',c:'Rosario',p:'Argentina',s:'rosario',cs:'argentina'},
+ {i:'USH',c:'Ushuaia',p:'Argentina',s:'ushuaia',cs:'argentina'},
+ {i:'SAL',c:'Salta',p:'Argentina',s:'salta',cs:'argentina'},
+ {i:'FTE',c:'El Calafate',p:'Argentina',s:'el-calafate',cs:'argentina'},
+ {i:'IGR',c:'Iguazú',p:'Argentina',s:'iguazu',cs:'argentina'},
+ {i:'LIM',c:'Lima',p:'Perú',s:'lima',cs:'peru'},
+ {i:'CUZ',c:'Cusco',p:'Perú',s:'cusco',cs:'peru'},
+ {i:'AQP',c:'Arequipa',p:'Perú',s:'arequipa',cs:'peru'},
+ {i:'GIG',c:'Río de Janeiro',p:'Brasil',s:'rio-de-janeiro',cs:'brazil'},
+ {i:'GRU',c:'São Paulo Guarulhos',p:'Brasil',s:'sao-paulo',cs:'brazil'},
+ {i:'CGH',c:'São Paulo Congonhas',p:'Brasil',s:'sao-paulo',cs:'brazil'},
+ {i:'BSB',c:'Brasilia',p:'Brasil',s:'brasilia',cs:'brazil'},
+ {i:'FLN',c:'Florianópolis',p:'Brasil',s:'florianopolis',cs:'brazil'},
+ {i:'POA',c:'Porto Alegre',p:'Brasil',s:'porto-alegre',cs:'brazil'},
+ {i:'CWB',c:'Curitiba',p:'Brasil',s:'curitiba',cs:'brazil'},
+ {i:'SSA',c:'Salvador de Bahía',p:'Brasil',s:'salvador',cs:'brazil'},
+ {i:'REC',c:'Recife',p:'Brasil',s:'recife',cs:'brazil'},
+ {i:'FOR',c:'Fortaleza',p:'Brasil',s:'fortaleza',cs:'brazil'},
+ {i:'MCZ',c:'Maceió',p:'Brasil',s:'maceio',cs:'brazil'},
+ {i:'NAT',c:'Natal',p:'Brasil',s:'natal',cs:'brazil'},
+ {i:'BPS',c:'Porto Seguro',p:'Brasil',s:'porto-seguro',cs:'brazil'},
+ {i:'CNF',c:'Belo Horizonte',p:'Brasil',s:'belo-horizonte',cs:'brazil'},
+ {i:'BOG',c:'Bogotá',p:'Colombia',s:'bogota',cs:'colombia'},
+ {i:'CTG',c:'Cartagena',p:'Colombia',s:'cartagena',cs:'colombia'},
+ {i:'ADZ',c:'San Andrés Isla',p:'Colombia',s:'san-andres',cs:'colombia'},
+ {i:'MDE',c:'Medellín',p:'Colombia',s:'medellin',cs:'colombia'},
+ {i:'CLO',c:'Cali',p:'Colombia',s:'cali',cs:'colombia'},
+ {i:'MEX',c:'Ciudad de México',p:'México',s:'ciudad-de-mexico',cs:'mexico'},
+ {i:'CUN',c:'Cancún',p:'México',s:'cancun',cs:'mexico'},
+ {i:'GDL',c:'Guadalajara',p:'México',s:'guadalajara',cs:'mexico'},
+ {i:'MTY',c:'Monterrey',p:'México',s:'monterrey',cs:'mexico'},
+ {i:'PVR',c:'Puerto Vallarta',p:'México',s:'puerto-vallarta',cs:'mexico'},
+ {i:'SJD',c:'Los Cabos',p:'México',s:'los-cabos',cs:'mexico'},
+ {i:'PUJ',c:'Punta Cana',p:'Rep. Dominicana',s:'punta-cana',cs:'dominican-republic'},
+ {i:'HAV',c:'La Habana',p:'Cuba',s:'la-habana',cs:'cuba'},
+ {i:'SJO',c:'San José',p:'Costa Rica',s:'san-jose',cs:'costa-rica'},
+ {i:'LIR',c:'Liberia Guanacaste',p:'Costa Rica',s:'liberia',cs:'costa-rica'},
+ {i:'PTY',c:'Panamá',p:'Panamá',s:'panama',cs:'panama'},
+ {i:'MIA',c:'Miami',p:'Estados Unidos',s:'miami',cs:'united-states'},
+ {i:'JFK',c:'Nueva York',p:'Estados Unidos',s:'new-york',cs:'united-states'},
+ {i:'LAX',c:'Los Ángeles',p:'Estados Unidos',s:'los-angeles',cs:'united-states'},
+ {i:'MAD',c:'Madrid',p:'España',s:'madrid',cs:'spain'},
+ {i:'BCN',c:'Barcelona',p:'España',s:'barcelona',cs:'spain'},
+ {i:'CDG',c:'París',p:'Francia',s:'paris',cs:'france'},
+ {i:'FCO',c:'Roma',p:'Italia',s:'roma',cs:'italy'},
+ {i:'AMS',c:'Ámsterdam',p:'Países Bajos',s:'amsterdam',cs:'netherlands'},
+ {i:'EZE2',c:'__RESERVE__',p:'',s:'',cs:''}
+].filter(a=>a.i!=='EZE2');
 
 createApp({
   data(){ return {
     D:null, mob:false, pax:1, selWin:0, filterMax:0, onlyDirect:false,
-    cpF:'todas', copied:null, mail:'', obj:'', susEnvio:false, susMsg:'', susOk:null, cfg:null
+    cpF:'todas', copied:null, mail:'', obj:'', susEnvio:false, susMsg:'', susOk:null, cfg:null,
+    qOri:'Santiago (SCL)', qDst:'Río de Janeiro (GIG)', qTrip:'rt', qFi:'', qFf:'', qDone:false, qErr:''
   }},
   computed:{
     f(){ return (this.D && this.D.fuentes) || {}; },
+    aeropuertos(){ return AEROPUERTOS; },
+    hoyISO(){ const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); },
+    qOriIata(){ return this.parseAer(this.qOri); },
+    qDstIata(){ return this.parseAer(this.qDst); },
+
+    /* ---- buscador universal: cualquier origen/destino/fecha, 11 sitios ---- */
+    sitiosBusqueda(){
+      const o=this.qOriIata, d=this.qDstIata;
+      if(!o||!d||o===d||!this.qFi) return [];
+      const rt=this.qTrip==='rt', fi=this.qFi, ff=this.qFf;
+      if(rt&&(!ff||ff<=fi)) return [];
+      const pax=this.pax||1;
+      const AO=AEROPUERTOS.find(a=>a.i===o)||{s:o.toLowerCase(),cs:'',c:o}, AD=AEROPUERTOS.find(a=>a.i===d)||{s:d.toLowerCase(),cs:'',c:d};
+      const path=rt?`roundtrip/${o}/${d}/${fi}/${ff}/1/0/0`:`oneway/${o}/${d}/${fi}/1/0/0`;
+      const sites=[];
+      sites.push({n:'Despegar',d:'Agencia ancla · precios en CLP',u:`https://www.despegar.cl/shop/flights/results/${path}`});
+      sites.push({n:'Viajes Falabella',d:'Inventario compartido con Despegar',u:`https://www.viajesfalabella.cl/shop/flights/results/${path}`});
+      sites.push({n:'Decolar',d:'Motor de Despegar Brasil',u:`https://www.decolar.com/shop/flights/results/${path}`});
+      sites.push({n:'Cocha',d:'Agencia chilena',u: rt?`https://www.cocha.com/resultado/vuelos/${o}/${d}/${fi}/1/Y?origin2=${d}&destination2=${o}&date2=${ff}`:`https://www.cocha.com/resultado/vuelos/${o}/${d}/${fi}/1/Y`});
+      sites.push({n:'LATAM',d:'Aerolínea · cabina incluida',u: rt?`https://www.latam.com/es_cl/book/shopping/flight/search/?from=${o}&to=${d}&outbound=${fi}&inbound=${ff}&adults=${pax}`:`https://www.latam.com/es_cl/book/shopping/flight/search/?from=${o}&to=${d}&outbound=${fi}&adults=${pax}`});
+      sites.push({n:'SKY Airline',d:'Aerolínea low cost',u: rt?`https://initial-sale.skyairline.com/es/chile?origin=${o}&destination=${d}&departureDate=${fi}&arrivalDate=${ff}&flightType=RT&ADT=${pax}`:`https://initial-sale.skyairline.com/es/chile?origin=${o}&destination=${d}&departureDate=${fi}&flightType=OW&ADT=${pax}`});
+      sites.push({n:'JetSMART',d:'Low cost · equipaje de mano',u:`https://booking.jetsmart.com/Flight/InternalSelect?c=true&mon=true&r=${rt}&cur=CLP&culture=es-CL&dd1=${fi}&o1=${o}&d1=${d}`+(rt?`&dd2=${ff}`:'')});
+      sites.push({n:'Atrápalo',d:'Agencia · puede pedir completar datos',u:`https://www.atrapalo.cl/vuelos/${AO.s}-${AD.s}_${o}-${d}.html`});
+      sites.push({n:'Kiwi',d:'Metebuscador · combina aerolíneas',u: rt?`https://www.kiwi.com/es/search/results/${AO.s}-${AO.cs}/${AD.s}-${AD.cs}/${fi}/${ff}`:`https://www.kiwi.com/es/search/results/${AO.s}-${AO.cs}/${AD.s}-${AD.cs}/${fi}`});
+      const sd=x=>x.replace(/-/g,'').slice(2);
+      sites.push({n:'Skyscanner',d:'Metebuscador global',u: rt?`https://www.skyscanner.cl/transporte/vuelos/${o.toLowerCase()}/${d.toLowerCase()}/${sd(fi)}/${sd(ff)}/?adultsv2=${pax}`:`https://www.skyscanner.cl/transporte/vuelos/${o.toLowerCase()}/${d.toLowerCase()}/${sd(fi)}/?adultsv2=${pax}`});
+      sites.push({n:'Google Flights',d:'Incluye aerolíneas sin web en Chile',u:'https://www.google.com/travel/flights?q='+encodeURIComponent(`Vuelos de ${AO.c} a ${AD.c} ${fi}${rt?' regreso '+ff:''}`)});
+      return sites;
+    },
+
+    /* ---- chips de fechas flexibles ±3 días (misma duración de viaje) ---- */
+    flexFechas(){
+      const out=[]; const o=this.qOriIata, d=this.qDstIata;
+      if(!o||!d||!this.qFi) return out;
+      const rt=this.qTrip==='rt'&&this.qFf;
+      const fi=new Date(this.qFi+'T12:00:00'), ff=rt?new Date(this.qFf+'T12:00:00'):null;
+      const iso=x=>x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0');
+      for(const k of [-3,-2,-1,1,2,3]){
+        const a=new Date(fi.getTime()+k*864e5), b=ff?new Date(ff.getTime()+k*864e5):null;
+        out.push({k, label:(k>0?'+':'')+k+' día'+(Math.abs(k)>1?'s':''),
+          u:`https://www.despegar.cl/shop/flights/results/${rt?'roundtrip':'oneway'}/${o}/${d}/${iso(a)}${b?'/'+iso(b):''}/1/0/0`});
+      }
+      return out;
+    },
 
     /* ---- consolidado de fuentes (tiles "precios hoy") — todos con deep link a la búsqueda exacta ---- */
     tiles(){
@@ -810,7 +970,8 @@ createApp({
 
     /* ---- comparación cruzada: agencias de toda América con las fechas seleccionadas ---- */
     agencias(){
-      const w=this.ventanaSel||{ida:'2027-01-22',vuelta:'2027-02-01'};
+      const isoD=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+      const w=this.ventanaSel||{ida:isoD(new Date(Date.now()+10*864e5)),vuelta:isoD(new Date(Date.now()+17*864e5))};
       return [
         {n:'Despegar', u:this.dpRT(w.ida,w.vuelta)},
         {n:'Cocha', u:`https://www.cocha.com/resultado/vuelos/SCL/GIG/${w.ida}/1/Y?origin2=GIG&destination2=SCL&date2=${w.vuelta}`},
@@ -849,19 +1010,24 @@ createApp({
       ((F.latam&&F.latam.dias_out)||[]).forEach(x=>{ mapa.ida[x.fecha]=Math.min(mapa.ida[x.fecha]||1e12,x.clp); });
       ((F.latam&&F.latam.dias_in)||[]).forEach(x=>{ mapa.vta[x.fecha]=Math.min(mapa.vta[x.fecha]||1e12,x.clp); });
       const cards=[];
-      [['2027','0','Enero 2027'],['2027','1','Febrero 2027']].forEach(([y,m,nom])=>{
-        [['ida','ida SCL → RIO'],['vta','vuelta RIO → SCL']].forEach(([k,sent])=>{
+      /* MESES RODANTES: se generan desde los datos capturados (siempre a futuro,
+         la ventana avanza sola cada día — sin temporadas fijas) */
+      const yms=[...new Set([...Object.keys(mapa.ida),...Object.keys(mapa.vta)]
+        .filter(f=>/^\d{4}-\d{2}/.test(f)).map(f=>f.slice(0,7)))].sort().slice(0,3);
+      yms.forEach(ym=>{
+        const [y,m]=ym.split('-').map(Number);
+        [['ida','ida SCL → GIG'],['vta','vuelta GIG → SCL']].forEach(([k,sent])=>{
           const vals = Object.values(mapa[k]).filter(v=>v<1e12).sort((a,b)=>a-b);
           const lo = vals[Math.floor(vals.length*.33)]||0, hi = vals[Math.floor(vals.length*.67)]||0;
-          const first = new Date(+y,+m,1), nd = new Date(+y,+m+1,0).getDate();
+          const first = new Date(y,m-1,1), nd = new Date(y,m,0).getDate();
           const off = (first.getDay()+6)%7;   // lunes primero
           const cells = Array(off).fill(null);
           for(let d=1; d<=nd; d++){
-            const iso = `${y}-${String(+m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+            const iso = `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
             const clp = mapa[k][iso] && mapa[k][iso]<1e12 ? mapa[k][iso] : null;
             cells.push({d, iso, clp, cheap: clp && lo && clp<=lo, exp: clp && hi && clp>hi});
           }
-          cards.push({nombre:nom, sentido:sent, cells, key:k});
+          cards.push({nombre:MESES[m-1]+' '+y, sentido:sent, cells, key:k});
         });
       });
       return cards;
@@ -900,6 +1066,19 @@ createApp({
     mailOk(){ return /^\S+@\S+\.\S+$/.test(this.mail); }
   },
   methods:{
+    /* buscador universal: parsea "Santiago (SCL)" o un IATA suelto */
+    parseAer(t){ t=String(t||'').trim().toUpperCase(); const m=t.match(/\(([A-Z]{3})\)/); if(m) return m[1]; return /^[A-Z]{3}$/.test(t)?t:null; },
+    aerNom(i){ const a=AEROPUERTOS.find(x=>x.i===i); return a?(a.c+' ('+a.i+')'):i; },
+    swapOriDst(){ const a=this.qOri; this.qOri=this.qDst; this.qDst=a; this.qDone=false; this.qErr=''; },
+    buscarUniversal(){
+      this.qErr='';
+      if(!this.qOriIata||!this.qDstIata){ this.qErr='Elige origen y destino de la lista (o escribe el código IATA de 3 letras, ej: SCL).'; this.qDone=false; return; }
+      if(this.qOriIata===this.qDstIata){ this.qErr='Origen y destino no pueden ser el mismo.'; this.qDone=false; return; }
+      if(!this.qFi){ this.qErr='Elige la fecha de ida — puedes elegir cualquier fecha a futuro, sin límites.'; this.qDone=false; return; }
+      if(this.qTrip==='rt'&&(!this.qFf||this.qFf<=this.qFi)){ this.qErr='La vuelta debe ser posterior a la ida (o cambia a "Solo ida").'; this.qDone=false; return; }
+      this.qDone=true;
+      try{ this.$nextTick(()=>{ const el=document.getElementById('qres'); if(el&&el.scrollIntoView) el.scrollIntoView({behavior:'smooth',block:'start'}); }); }catch(e){}
+    },
     fmt(n){ return (n==null||isNaN(n))?'—':Math.round(n).toLocaleString('es-CL'); },
     fmtK(n){ return (n==null||isNaN(n))?0:Math.round(n/1000).toLocaleString('es-CL'); },
     dshortISO(iso){ if(!iso) return ''; const d=new Date(iso+'T12:00:00'); return `${DIA[d.getDay()]} ${d.getDate()} ${MES[d.getMonth()]}`; },
@@ -964,6 +1143,16 @@ createApp({
       const rc = await fetch('alertas.cfg.json?t='+Date.now(), {cache:'no-store'});
       if(rc.ok) this.cfg = await rc.json();
     }catch(e){ console.error('alertas.cfg', e); }
+    /* fechas por defecto del buscador: la mejor ventana capturada por el radar
+       (si existe) o una ventana rodante ida+7 a futuro — nunca fechas fijas */
+    try{
+      const w=(this.ventanasTop||[])[0];
+      if(w&&w.ida&&w.vuelta){ this.qFi=w.ida; this.qFf=w.vuelta; }
+      else if(!this.qFi){
+        const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+        this.qFi=iso(new Date(Date.now()+10*864e5)); this.qFf=iso(new Date(Date.now()+17*864e5));
+      }
+    }catch(e){}
   }
 }).mount('#app');
 </script>

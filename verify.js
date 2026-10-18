@@ -16,6 +16,9 @@ global.location = { pathname: '/vuelos-rio-live/' };
 const DIA = ['dom','lun','mar','mié','jue','vie','sáb'];
 const MES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
 const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+// dataset de aeropuertos del buscador universal (extraído del HTML del sitio)
+const mAER = html.match(/const AEROPUERTOS = (\[[\s\S]*?\])\s*\.filter/);
+const AEROPUERTOS = mAER ? eval(mAER[1]) : [];
 let cfg;
 try { cfg = eval('(' + cfgSrc + ')'); } catch (e) { console.error('FATAL: config no compila:', e.message); process.exit(2); }
 
@@ -70,14 +73,16 @@ vm.filterMax = 0; vm.onlyDirect = true;
 ok(vm.filasFiltradas.every(r => r.directo), 'filtro directos funciona');
 vm.onlyDirect = false;
 
-console.log('== 4. calendarios ==');
+console.log('== 4. calendarios (meses rodantes) ==');
 const cals = vm.calendarios;
-ok(Array.isArray(cals) && cals.length === 4, '4 calendarios (2 meses x 2 sentidos)', cals.length);
+ok(Array.isArray(cals) && cals.length >= 2 && cals.length <= 8, '2-8 calendarios rodantes (meses con datos x 2 sentidos)', cals.length);
 ok(cals.every(c => c.cells.length >= 28 && c.cells.length <= 42), 'grids de dias completos', cals.map(c => c.cells.length));
+ok(cals.every(c => /^\d{4}/.test(c.nombre) || MESES.some(m => c.nombre.includes(m))), 'nombres de mes presentes');
 const conPrecio = cals.flatMap(c => c.cells).filter(c => c && c.clp);
-ok(conPrecio.length >= 30, '>= 30 dias con precio', conPrecio.length);
+ok(conPrecio.length >= 15, '>= 15 dias con precio', conPrecio.length);
 ok(conPrecio.every(c => money(c.clp)), 'precios de calendario validos');
-ok(cals.every(c => c.cells.some(c2 => c2 && c2.cheap)), 'cada calendario tiene dia barato marcado');
+ok(cals.some(c => c.cells.some(c2 => c2 && c2.cheap)), 'hay dia barato marcado en el calendario');
+ok(cals.every(c => c.cells.every(c2 => !c2 || !c2.clp || !isNaN(new Date(c2.iso)))), 'fechas ISO de celdas validas');
 
 console.log('== 5. destinos y ofertas ==');
 const ds = vm.destinos;
@@ -172,9 +177,10 @@ ok((html.match(/#0a4fd9/gi) || []).length >= 3, 'color de marca azul (logo ofici
 ok(!html.includes('CyberMonday'), 'sin cupones caducados hardcodeados');
 
 console.log('== 8b. identidad de marca (logo oficial) ==');
-ok(fs.existsSync('assets/brand/logo.svg'), 'logo oficial SVG presente');
-ok(fs.existsSync('assets/brand/favicon.svg'), 'favicon oficial SVG presente');
-ok(fs.existsSync('assets/brand/og-image.png'), 'og-image para compartir presente');
+const base2 = require('path').dirname(htmlPath);
+ok(fs.existsSync(require('path').join(base2, 'assets/brand/logo.svg')), 'logo oficial SVG presente');
+ok(fs.existsSync(require('path').join(base2, 'assets/brand/favicon.svg')), 'favicon oficial SVG presente');
+ok(fs.existsSync(require('path').join(base2, 'assets/brand/og-image.png')), 'og-image para compartir presente');
 ok(/rel="icon" href="assets\/brand\/favicon\.svg"/.test(html), 'favicon del logo enlazado en head');
 ok(/og:image" content="https:\/\/xacox01\.github\.io\/vuelos-rio-live\/assets\/brand\/og-image\.png"/.test(html), 'og:image absoluta enlazada');
 const logoSq = html.slice(html.indexOf('class="sq"'), html.indexOf('class="sq"') + 700);
@@ -183,7 +189,7 @@ ok(/stroke="#ff690f"/.test(logoSq), 'señal naranja del logo en header');
 ok(/#ff690f/i.test(html.slice(0, html.indexOf('</style>'))), 'naranja oficial en paleta CSS');
 
 console.log('== 9. enlaces profundos por fuente (integridad de compra) ==');
-const YEAR = /2027-\d{2}-\d{2}/;
+const YEAR = /20\d\d-\d{2}-\d{2}/;   /* ventana rodante: cualquier año futuro */
 const TIL_PAT = {
   jetsmart: u => u.includes('booking.jetsmart.com/Flight/InternalSelect') && u.includes('dd2='),
   sky: u => u.includes('skyairline.com') && u.includes('departureDate='),
@@ -195,7 +201,7 @@ const TIL_PAT = {
 tiles.forEach(t => {
   const pat = TIL_PAT[t.key];
   ok(pat && pat(t.url || ''), 'tile ' + t.nombre + ': deep link a busqueda real', t.url);
-  ok(YEAR.test(t.url || ''), 'tile ' + t.nombre + ': url con fecha 2027', t.url);
+  ok(YEAR.test(t.url || ''), 'tile ' + t.nombre + ': url con fecha rodante', t.url);
   ok(!!t.sub && !!t.nota, 'tile ' + t.nombre + ': sub y nota presentes');
 });
 const FIL_PAT = r => {
@@ -207,9 +213,9 @@ const FIL_PAT = r => {
 };
 const filasBad = filas.filter(r => !FIL_PAT(r));
 ok(filasBad.length === 0, 'todas las filas con deep link a su fuente', filasBad.slice(0, 3).map(r => (r.al || r.src) + ' → ' + String(r.link).slice(0, 70)));
-ok(filas.every(r => YEAR.test(r.link || '')), 'filas con fecha 2027 en el enlace');
+ok(filas.every(r => YEAR.test(r.link || '')), 'filas con fecha rodante en el enlace');
 const vw0 = vw[0] || {};
-ok((vm.dpRT(vw0.ida, vw0.vuelta) || '').includes('2027'), 'buscador hero: url con fecha');
+ok((vm.dpRT(vw0.ida, vw0.vuelta) || '').includes('despegar.cl'), 'buscador hero: url ancla Despegar');
 const dss = ds.filter(d => (d.link || '').includes('cocha.com/resultado/vuelos/')).length;
 ok(dss >= ds.length - 1, 'destinos con deep link Cocha (agencia chilena)', dss + '/' + ds.length);
 ok(!/skiplagged/i.test(html), 'sin NINGUNA referencia a Skiplagged en la interfaz');
@@ -243,12 +249,71 @@ vm.filterMax = 0; vm.onlyDirect = true;
 const directas = vm.filasFiltradas.length;
 vm.onlyDirect = false;
 ok(directas <= vm.filasFiltradas.length, 'filtro directos reduce correctamente');
-const nav = ['#hoy', '#vuelos', '#calendario', '#ofertas', '#destinos', '#cupones', '#alertas'];
+const nav = ['#hoy', '#vuelos', '#calendario', '#destinos', '#cupones', '#alertas', '#faq'];
 nav.forEach(id => ok(html.includes('href="' + id + '"') && html.includes('id="' + id.slice(1) + '"'), 'navegacion y seccion: ' + id));
-ok(html.includes('Buscar vuelos'), 'CTA buscador presente');
+ok(html.includes('href="alojamientos.html"') && html.includes('id="ofertas"'), 'zona alojamientos enlazada + ofertas presentes');
+ok(html.includes('Buscar el más barato'), 'CTA del buscador universal presente');
+ok(html.includes('id="aeropuertos"') && html.includes('list='), 'datalist de aeropuertos del buscador universal');
 ok(html.includes('<details'), 'FAQ acordeon presente');
 ok(html.toLowerCase().includes('afiliad'), 'divulgacion de afiliados en footer');
 ok(html.includes('ago(') || html.includes('ago'), 'frescura visible');
+
+console.log('== 11. buscador universal (cualquier destino/fecha, sin límites) ==');
+vm.qOri = 'Santiago (SCL)'; vm.qDst = 'Cusco (CUZ)'; vm.qTrip = 'rt';
+vm.qFi = '2026-11-06'; vm.qFf = '2026-11-13'; vm.pax = 2;
+const sb = vm.sitiosBusqueda;
+ok(Array.isArray(sb) && sb.length >= 10, 'buscador universal: >= 10 sitios', sb && sb.length);
+ok(sb.every(s => /^https:\/\//.test(s.u)), 'buscador universal: urls https');
+ok(sb.some(s => s.n === 'Despegar' && s.u.includes('/shop/flights/results/roundtrip/SCL/CUZ/2026-11-06/2026-11-13/')), 'deep link OTA con ruta arbitraria SCL→CUZ y fechas libres');
+ok(sb.some(s => s.n === 'Cocha' && s.u.includes('cocha.com/resultado/vuelos/SCL/CUZ/2026-11-06')), 'deep link Cocha con ruta arbitraria');
+ok(sb.some(s => s.n === 'LATAM' && s.u.includes('from=SCL&to=CUZ') && s.u.includes('adults=2')), 'deep link LATAM respeta pasajeros');
+ok(sb.some(s => s.n === 'Google Flights' && s.u.includes('travel/flights?q=')), 'Google Flights presente');
+ok(sb.some(s => s.n === 'Skyscanner' && s.u.includes('/transporte/vuelos/scl/cuz/261106/261113')), 'deep link Skyscanner con fechas compactas');
+vm.qTrip = 'ow';
+const sb1 = vm.sitiosBusqueda;
+ok(sb1.length >= 10, 'solo ida: >= 10 sitios', sb1.length);
+ok(sb1.some(s => s.n === 'Despegar' && s.u.includes('/shop/flights/results/oneway/SCL/CUZ/2026-11-06/1/0/0')), 'deep link oneway correcto');
+ok(!sb1.some(s => s.u.includes('2026-11-06/2026-11-13')) || sb1.some(s => s.n === 'Cocha'), 'oneway sin fecha de vuelta en Despegar');
+vm.qTrip = 'rt';
+const fx = vm.flexFechas;
+ok(Array.isArray(fx) && fx.length === 6, 'chips de fechas flexibles ±3 días', fx && fx.length);
+ok(fx.every(f => f.u.includes('despegar.cl/shop/flights/results/')), 'chips flexibles abren Despegar');
+vm.qDst = 'Madrid (MAD)';
+const sbM = vm.sitiosBusqueda;
+ok(sbM.length >= 10, 'ruta intercontinental SCL→MAD generada', sbM.length);
+ok(sbM.some(s => s.u.includes('/MAD/')), 'ruta MAD presente en deep links');
+vm.qDst = 'Río de Janeiro (GIG)';
+ok(vm.qOriIata === 'SCL' && vm.qDstIata === 'GIG', 'parseAer entiende formato ciudad (IATA)');
+ok(vm.parseAer('LIM') === 'LIM' && vm.parseAer('cualquier otra cosa') === null, 'parseAer acepta IATA suelto y rechaza texto');
+vm.pax = 1;
+
+console.log('== 12. zona alojamientos (17 sitios + dueños directos + radar) ==');
+const aloPath = require('path').join(base, 'alojamientos.html');
+ok(fs.existsSync(aloPath), 'alojamientos.html existe');
+if (fs.existsSync(aloPath)) {
+  const alo = fs.readFileSync(aloPath, 'utf8');
+  const nProv = (alo.match(/\{n:'/g) || []).length;
+  ok(nProv >= 17, 'al menos 17 sitios de alojamiento en la zona', nProv);
+  ok((alo.match(/own:true/g) || []).length === 6, '6 canales de dueños directos (3 Chile + 3 Argentina)', (alo.match(/own:true/g) || []).length);
+  ['Airbnb', 'Booking.com', 'Vrbo', 'Expedia', 'Hotels.com', 'Agoda', 'Hostelworld',
+   'Despegar Hoteles', 'Cocha Hoteles', 'Trivago', 'Kayak', 'Google Hoteles',
+   'Yapo.cl', 'Portal Inmobiliario', 'MercadoLibre Chile', 'Argenprop', 'Zonaprop'].forEach(n =>
+    ok(alo.includes("n:'" + n + "'"), 'sitio alojamiento presente: ' + n));
+  ok(alo.includes('airbnb.cl/s/') && alo.includes('searchresults.es.html') && alo.includes('argenprop.com/departamentos-alquiler-temporal-'), 'deep links de alojamientos con búsqueda armada');
+  ok(alo.includes('createApp') && alo.includes('data.json'), 'zona alojamientos con app Vue y data.json');
+  ok(alo.includes('checkin=') && alo.includes('checkout='), 'fechas de estadía en los deep links');
+  ok(alo.includes('radar') && alo.includes('stays'), 'radar de noches en la zona de alojamientos');
+}
+/* radar de alojamientos en data.json (opcional hasta el primer barrido) */
+const ST = DATA.stays || null;
+ok(ST === null || (ST.ventana && Array.isArray(ST.destinos)), 'data.stays con estructura válida (o sin primer barrido aún)');
+if (ST && Array.isArray(ST.destinos)) {
+  ok(ST.destinos.length >= 6, 'radar alojamientos: >= 6 destinos', ST.destinos.length);
+  ok(ST.destinos.filter(d => d.min_clp > 0).length >= 1, 'radar alojamientos: >= 1 destino con precio capturado');
+  ok(ST.destinos.every(d => d.pais === 'Chile' || d.pais === 'Argentina'), 'destinos de Chile/Argentina');
+  ok(ST.destinos.every(d => !d.min_clp || (d.min_clp > 10000 && d.min_clp < 3000000)), 'precios de alojamiento plausibles');
+}
+ok(fs.existsSync(require('path').join(base, 'fetch_stays.py')), 'fetch_stays.py presente (radar de alojamientos)');
 
 console.log('\n' + (checks - fails) + '/' + checks + ' checks OK' + (fails ? ' — ' + fails + ' FALLOS' : ''));
 process.exit(fails ? 1 : 0);
