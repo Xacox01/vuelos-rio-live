@@ -220,7 +220,7 @@ footer p{font-size:.8rem;line-height:1.55}
           <span class="fl">{{s.pais==='Chile'?'🇨🇱':'🇦🇷'}}</span>
         </div>
         <span class="win">{{dshort(stays.ventana.checkin)}} → {{dshort(stays.ventana.checkout)}} · {{stays.ventana.noches}} noches · 2 adultos</span>
-        <div class="pr" v-if="s.min_clp"><small>NOCHE CONJUNTA DESDE ({{stays.ventana.noches}} NOCHES)</small>${{fmt(s.min_clp)}}</div>
+        <div class="pr" v-if="s.min_clp"><small>POR NOCHE DESDE · ESTANCIA CAPTURADA: {{stays.ventana.noches}} NOCHES</small>${{fmt(s.min_clp)}}</div>
         <div class="pr" v-else style="color:var(--faint)"><small>SIN LECTURA ESTE CICLO</small>—</div>
         <div class="srcchips">
           <a class="schip src" v-if="s.despegar && s.despegar.min_clp" :href="dpStay(s)" target="_blank" rel="noopener nofollow">Despegar <b>${{fmtK(s.despegar.min_clp)}}</b></a>

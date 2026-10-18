@@ -292,7 +292,7 @@ def main():
     d["stays"] = {"ts": time.strftime("%Y-%m-%d %H:%M:%S"), "ok": any(x.get("min_clp") for x in fresh.values()),
                   "ventana": {"checkin": CHECKIN, "checkout": CHECKOUT,
                               "noches": NOCHES, "adultos": 2},
-                  "nota": ("Precios de ALOJAMIENTO capturados en vivo (2 adultos, estancia del fin de semana "
+                  "nota": ("Tarifas por noche de ALOJAMIENTO capturadas en vivo (2 adultos, estancia del fin de semana "
                            "próximo) en Despegar Hoteles y Booking.com con navegador real + WARP. "
                            "El total exacto lo confirma el sitio al reservar."),
                   "destinos": orden}
