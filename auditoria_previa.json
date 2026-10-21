@@ -1,16 +1,16 @@
 {
- "n": 2,
- "ts": "2026-10-20 20:46:44",
+ "n": 3,
+ "ts": "2026-10-20 23:59:42",
  "hashes": {
   "vuelos-jetsmart": "53df5e0c9c9a",
-  "vuelos-sky": "68a529b8950c",
+  "vuelos-sky": "9e8e24925411",
   "vuelos-latam": "f1f15e06b77b",
   "vuelos-cocha": "9f12443ebbca",
   "vuelos-despegar": "3a6840565496",
   "vuelos-falabella": "3a6840565496",
-  "playas": "1d7ef12203b0",
+  "playas": "351c6e96f1db",
   "cupones": "03c2cd309e95",
-  "stays": "6b13f5db6e2b"
+  "stays": "c9a1b48759ed"
  },
  "congelado_streak": 0
 }
