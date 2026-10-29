@@ -104,6 +104,30 @@ ok(nDatos >= 3, `>= 3 destinos de playa con cotización (ventanas escaneadas: ${
 ok(vm.destinosEnPresupuesto >= 1, '>= 1 destino de playa dentro de presupuesto', vm.destinosEnPresupuesto);
 ok(vm.ofertas.length >= 5 && vm.ofertas.every(o => o.cod !== 'GIG'), 'ofertas excluyen Rio (card grande)');
 ok(vm.ofertaRio && money(vm.ofertaRio.clp), 'ofertaRio presente');
+/* TASK 26 (bug del dueño): "un valor distinto entre los más baratos vs los
+   destinos — eso no puede suceder". En rio-live la tarjeta GIG mostraba una
+   ventana acumada hace DÍAS (ts 20-oct con data del 29-oct). El scraper ahora
+   sincroniza GIG contra el pool RT fresco cada ciclo y evapora ventanas >26 h.
+   Regla: si el pool cubre las fechas del precio publicado, la tarjeta debe ser
+   IDÉNTICA al mínimo fresco con ts del ciclo; si no viene cubierto, aviso. */
+const gigD = (PL.destinos || []).find(x => x.cod === 'GIG');
+if (gigD && gigD.mejor && gigD.mejor.clp > 0) {
+  const ageH = ts => { if (!ts) return null; const t = Date.parse(String(ts).replace(' ', 'T') + 'Z'); return isFinite(t) ? (Date.now() - t) / 3600e3 : null; };
+  const poolRT = {};
+  const addRT = (i, v, c) => { if (i && v && typeof c === 'number' && c > 0) { const k = i + '_' + v; if (!(k in poolRT) || c < poolRT[k]) poolRT[k] = c; } };
+  ((F.jetsmart || {}).combos || []).forEach(c => addRT(c.ida, c.vuelta, c.clp));
+  ((F.sky || {}).pairs || []).forEach(p => addRT(p.ida, p.vuelta, p.clp));
+  ((F.latam || {}).combos || []).forEach(c => addRT(c.ida, c.vuelta, c.clp));
+  ((F.cocha || {}).ventanas || []).forEach(v => addRT(v.ida, v.vuelta, v.min_clp));
+  const fMg = poolRT[gigD.mejor.ida + '_' + gigD.mejor.vuelta];
+  if (fMg !== undefined) {
+    const eMg = ageH(gigD.mejor.ts);
+    ok(eMg !== null && eMg <= 0.5, 'GIG: tarjeta destinos sincronizada al ciclo fresco (mejor.ts <= 30 min)', gigD.mejor.ts);
+    ok(Math.abs(gigD.mejor.clp - fMg) <= 1, 'GIG: precio de tarjeta == mínimo fresco (mismas fechas)', { tarjeta: gigD.mejor.clp, fresco: fMg });
+  } else console.log('     aviso: par mejor de GIG sin cobertura fresca este ciclo (' + gigD.mejor.ida + '→' + gigD.mejor.vuelta + ')');
+} else {
+  ok(false, 'GIG: tarjeta de destinos presente con mejor precio', 'falta GIG en playas.destinos');
+}
 ds.forEach(d => console.log('     ' + d.cod + ' ' + d.ciudad + ': $' + Math.round(d.clp).toLocaleString('es-CL') + (d.enPresupuesto ? '' : ' (sobre presupuesto)')));
 
 console.log('== 6. cupones ==');

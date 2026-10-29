@@ -154,6 +154,10 @@ section.band{background:var(--bg);border-top:1px solid var(--line);border-bottom
 .tile .fresh{margin-left:auto;font-size:.68rem;color:var(--faint);font-weight:600;white-space:nowrap}
 .tile .fresh i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--ok);margin-right:4px}
 .tile .fresh.old i{background:var(--amber)}
+/* Task 26: chip de frescura también en tarjetas de destinos/ofertas */
+.ofcard .fresh,.dcard .fresh{display:inline-flex;align-items:center;font-size:.66rem;color:var(--faint);font-weight:600;white-space:nowrap}
+.ofcard .fresh i,.dcard .fresh i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--ok);margin-right:4px}
+.ofcard .fresh.old i,.dcard .fresh.old i{background:var(--amber)}
 .tile .pr{font-size:1.34rem;font-weight:800;color:var(--ink)}
 .tile .pr small{font-size:.7rem;color:var(--faint);font-weight:600;display:block;letter-spacing:.03em}
 .tile .sub{font-size:.76rem;color:var(--mut);font-weight:600}
@@ -548,7 +552,7 @@ footer .flogo b{color:#fff;font-size:1rem}
           <div class="tt"><b>Río de Janeiro {{'🇧🇷'}}</b><span>El clásico de enero: Copacabana, Ipanema y el Pan de Azúcar</span></div>
         </div>
         <div class="ofbd">
-          <div class="ln"><span>{{dshort(ofertaRio.ida)}} → {{dshort(ofertaRio.vuelta)}}</span><span>{{ofertaRio.noches}} noches</span></div>
+          <div class="ln"><span>{{dshort(ofertaRio.ida)}} → {{dshort(ofertaRio.vuelta)}}</span><span>{{ofertaRio.noches}} noches</span><span class="fresh" :class="{old:!ofertaRio.fresco}" title="Antigüedad de la cotización mostrada"><i></i>{{ago(ofertaRio.ts)}}</span></div>
           <div class="pr"><small>IDA + VUELTA POR PERSONA DESDE</small>${{fmt(ofertaRio.clp)}} <span style="font-size:.72rem;color:var(--mut);font-weight:600">· {{ofertaRio.al}}</span></div>
           <div class="row">
             <a class="btn org" :href="ofertaRio.link" target="_blank" rel="noopener nofollow">Ver vuelos a Río</a>
@@ -562,7 +566,7 @@ footer .flogo b{color:#fff;font-size:1rem}
           <div class="tt"><b>{{o.ciudad}}</b><span>{{o.flag}} {{o.pais}}</span></div>
         </div>
         <div class="ofbd">
-          <div class="ln"><span>{{dshort(o.ida)}} → {{dshort(o.vuelta)}}</span><span>{{o.noches}} noches</span></div>
+          <div class="ln"><span>{{dshort(o.ida)}} → {{dshort(o.vuelta)}}</span><span>{{o.noches}} noches</span><span class="fresh" :class="{old:!o.fresco}" title="Antigüedad de la cotización mostrada"><i></i>{{ago(o.ts)}}</span></div>
           <div class="pr"><small>IDA + VUELTA DESDE</small>${{fmt(o.clp)}}</div>
           <div class="row">
             <a class="btn" :href="o.link" target="_blank" rel="noopener nofollow">Ver vuelos</a>
@@ -590,7 +594,7 @@ footer .flogo b{color:#fff;font-size:1rem}
           <span class="prp"><small>DESDE</small>${{fmt(d.clp)}}</span>
         </div>
         <div class="dbd">
-          <div class="nm">{{d.ciudad}}</div>
+          <div class="nm">{{d.ciudad}} <span class="fresh" :class="{old:!d.fresco}" title="Antigüedad de la cotización mostrada"><i></i>{{ago(d.ts)}}</span></div>
           <div class="fe">{{dshort(d.ida)}} → {{dshort(d.vuelta)}} · {{d.noches}} noches</div>
           <div class="srcs">mejor vía {{d.src}} · Cocha desde ${{fmtK(d.cocha)}}</div>
           <div class="row">
@@ -1045,6 +1049,8 @@ createApp({
         const wBest=(p.windows||[]).find(w=>w.min_clp===m.clp) || {};
         return {cod:p.cod,ciudad:p.ciudad,pais:p.pais,flag:p.flag,clp:m.clp,ida:m.ida,vuelta:m.vuelta,
           noches:m.noches||'',al:m.aerolinea,escalas:m.escalas||0,src:m.src,link:m.link,
+          /* Task 26: frescura visible de la cotización mostrada */
+          ts:m.ts||(p.cocha&&p.cocha.ts)||'',fresco:this.fresco(m.ts||(p.cocha&&p.cocha.ts)||''),
           cocha:(p.cocha&&p.cocha.min_clp)||0,linkCocha:(p.cocha&&p.cocha.link)||m.link,
           enPresupuesto:m.clp<=B, ahorro, ahorroVentana:wBest.ida?this.dshort(wBest.ida).replace(/^\w+ /,''):''};
       }).sort((a,b)=>a.clp-b.clp);

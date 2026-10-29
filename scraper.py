@@ -36,6 +36,20 @@ except Exception:
 def now_iso():
     return datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
+def _edad_h(ts):
+    """Edad en horas de un ts 'YYYY-MM-DD HH:MM:SS' (None si ilegible)."""
+    try:
+        return (datetime.datetime.now() - datetime.datetime.strptime(str(ts)[:19], "%Y-%m-%d %H:%M:%S")).total_seconds() / 3600.0
+    except Exception:
+        return None
+
+# Task 26: edad máxima de una ventana acumulada. Con la rotación de 3 ventanas
+# cada ventana se re-cotiza cada 15 min; una ventana con >26 h sin re-cotización
+# es legado de una rotación anterior (fechas que ya salieron de la ventana
+# rodante) — su precio ya no es verificable y la tarjeta de destinos mostraba
+# valores de hace DÍAS que contradecían las secciones frescas.
+VENTANA_EVICT_H = 26.0
+
 # ---------------- JetSMART (API oficial) ----------------
 def fetch_jetsmart():
     t0 = time.time()
@@ -631,10 +645,13 @@ def fetch_playas(prev, cycle):
     for cod, ciudad, pais, flag in PLAYAS_DEST:
         pd = prev_dest.get(cod) or {}
         # descarta ventanas fuera de la ventana rodante (fechas vencidas o
-        # legado de la temporada ene–feb 2027)
+        # legado de la temporada ene–feb 2027) y ventanas sin re-cotización hace
+        # >26 h (legado de rotaciones anteriores — Task 26: su precio mostraba
+        # valores de hace días que contradecían las secciones frescas)
         wprev = {f"{w['ida']}_{w['vuelta']}": w for w in (pd.get("windows") or [])
                  if "skiplagged.com" not in str(w.get("link") or "")
-                 and str(w.get("ida") or "") >= WIN_LO}
+                 and str(w.get("ida") or "") >= WIN_LO
+                 and (_edad_h(w.get("ts")) is None or _edad_h(w.get("ts")) <= VENTANA_EVICT_H)}
         for ida, vuelta in wins:
             try:
                 res = agencia_rt(cod, ida, vuelta)
@@ -655,12 +672,13 @@ def fetch_playas(prev, cycle):
                                "ts": wlist[0]["ts"], "link": wlist[0]["link"]} if wlist else pd.get("cocha"))})
     # mejor opción por destino (Cocha)
     for d in out:
-        cands = [(w["min_clp"], "Cocha", w["ida"], w["vuelta"], w["aerolinea"], w["escalas"], w["det"], w["link"])
+        cands = [(w["min_clp"], "Cocha", w["ida"], w["vuelta"], w["aerolinea"], w["escalas"], w["det"], w["link"],
+                  w.get("ts") or now_iso())
                  for w in d["windows"]]
         if cands:
             b = min(cands, key=lambda t: t[0])
             d["mejor"] = {"clp": b[0], "src": b[1], "ida": b[2], "vuelta": b[3], "aerolinea": b[4],
-                          "escalas": b[5], "det": b[6], "link": b[7],
+                          "escalas": b[5], "det": b[6], "link": b[7], "ts": b[8],
                           "noches": (datetime.date.fromisoformat(b[3]) - datetime.date.fromisoformat(b[2])).days}
         else:
             d["mejor"] = None
@@ -670,6 +688,105 @@ def fetch_playas(prev, cycle):
     return {"destinos": out, "fx": round(fx, 2), "budget": PLAYAS_BUDGET,
             "ventanas": [f"{a} → {b}" for a, b in PLAYAS_WIN],
             "nota": "Cotización en vivo de Cocha (agencia chilena) — precios verificados con fecha de itinerario exacta; el precio final puede variar ~10% al reservar."}
+
+
+# ---------------- Task 26: sincronización GIG con el ciclo fresco ----------------
+def _pool_rt_fresco(F):
+    """Pool RT SCL⇄GIG del ciclo fresco por par de fechas (lo mismo que muestran
+    los tiles 'Precio mínimo de hoy' y la tabla de combinaciones):
+    {key: [(clp, cod_al, aerolinea, det, escalas, link), ...]}"""
+    pool = {}
+    def add(ida, vuelta, clp, cod, nom, det, esc, link=""):
+        if not (ida and vuelta and isinstance(clp, (int, float)) and clp > 0):
+            return
+        pool.setdefault(f"{ida}_{vuelta}", []).append(
+            (float(clp), cod, nom, det or "", int(esc or 0), link or ""))
+    js = F.get("jetsmart") or {}
+    for c in (js.get("combos") or []):
+        vv = str(c.get("v_vue") or "").split()
+        add(c.get("ida"), c.get("vuelta"), c.get("clp"), "JA", "JetSMART",
+            (str(c.get("v_ida") or "") + (" · vuelta " + vv[-1] if vv else "")).strip(" ·"), 0)
+    for p in ((F.get("sky") or {}).get("pairs") or []):
+        add(p.get("ida"), p.get("vuelta"), p.get("clp"), "H2", "SKY", "SKY directo", 0)
+    for c in ((F.get("latam") or {}).get("combos") or []):
+        add(c.get("ida"), c.get("vuelta"), c.get("clp"), "LA", "LATAM",
+            "LATAM directo" if c.get("directo") else "LATAM", 0 if c.get("directo") else 1)
+    for v in ((F.get("cocha") or {}).get("ventanas") or []):
+        rs = v.get("resultados") if isinstance(v.get("resultados"), list) else []
+        r0 = rs[0] if rs else {}
+        add(v.get("ida"), v.get("vuelta"), v.get("min_clp"), r0.get("cod") or "CO", "Cocha",
+            r0.get("det") or "", r0.get("escalas") or 0, v.get("link") or "")
+    return pool
+
+
+def sincronizar_gig_fresco(live):
+    """Task 26 (dueño): la tarjeta de Río en 'Destinos' mostraba el precio de una
+    ventana acumada hace DÍAS (ts 20-oct con data del 29-oct) mientras los tiles
+    muestran el ciclo fresco — 'un valor distinto entre los más baratos vs los
+    destinos, eso no puede suceder'.
+
+    FIX: re-precia las ventanas GIG cuyo par de fechas existe en el pool RT fresco
+    (JetSMART/SKY/LATAM API + Cocha verificada), les pone ts del ciclo, inyecta el
+    par mínimo fresco si no está, y recalcula 'cocha' y 'mejor'.
+    Devuelve nº de ventanas sincronizadas/inyectadas."""
+    P = (live.get("fuentes") or {}).get("playas")
+    if not isinstance(P, dict) or not (P.get("destinos") or []):
+        return 0
+    pool = _pool_rt_fresco(live.get("fuentes") or {})
+    n = 0
+    for d in P["destinos"]:
+        if d.get("cod") != "GIG":
+            continue
+        fres = [w for w in (d.get("windows") or []) if isinstance(w, dict) and w.get("ida")]
+        for w in fres:
+            rows = pool.get(f"{w.get('ida')}_{w.get('vuelta')}")
+            if not rows:
+                continue  # par no cubierto este ciclo: la rotación lo re-cotiza
+            b = min(rows, key=lambda r: r[0])
+            w["min_clp"] = round(b[0])
+            w["aerolinea"] = b[2]
+            w["cod_al"] = b[1]
+            w["det"] = b[3]
+            w["escalas"] = b[4]
+            if b[5]:
+                w["link"] = b[5]
+            w["ts"] = now_iso()
+            w["base"] = "fresco"
+            w["exacta"] = True
+            w["top"] = [{"aerolinea": r[2], "cod": r[1], "det": r[3], "escalas": r[4],
+                         "clp": round(r[0]), "fecha_ida": w["ida"], "fecha_vuelta": w["vuelta"]}
+                        for r in sorted(rows, key=lambda r: r[0])[:4]]
+            n += 1
+        if pool:
+            k, rows = min(pool.items(), key=lambda kv: min(r[0] for r in kv[1]))
+            if not any(f"{w.get('ida')}_{w.get('vuelta')}" == k for w in fres):
+                ida, vuelta = k.split("_")
+                b = min(rows, key=lambda r: r[0])
+                fres.append({"ida": ida, "vuelta": vuelta, "ts": now_iso(),
+                             "min_clp": round(b[0]), "aerolinea": b[2], "cod_al": b[1],
+                             "det": b[3], "escalas": b[4],
+                             "link": b[5] or "https://www.cocha.com/vuelos",
+                             "base": "fresco", "exacta": True,
+                             "top": [{"aerolinea": r[2], "cod": r[1], "det": r[3], "escalas": r[4],
+                                      "clp": round(r[0]), "fecha_ida": ida, "fecha_vuelta": vuelta}
+                                     for r in sorted(rows, key=lambda r: r[0])[:4]]})
+                n += 1
+        wlist = sorted(fres, key=lambda w: w["min_clp"])
+        d["windows"] = wlist
+        d["cocha"] = ({"min_clp": wlist[0]["min_clp"], "aerolinea": wlist[0]["aerolinea"],
+                       "escalas": wlist[0]["escalas"], "det": wlist[0]["det"],
+                       "ida": wlist[0]["ida"], "vuelta": wlist[0]["vuelta"],
+                       "ts": wlist[0]["ts"], "link": wlist[0]["link"]} if wlist else d.get("cocha"))
+        cands = [(w["min_clp"], "Cocha", w["ida"], w["vuelta"], w["aerolinea"], w["escalas"],
+                  w["det"], w["link"], w.get("ts") or now_iso()) for w in wlist]
+        if cands:
+            b = min(cands, key=lambda t: t[0])
+            d["mejor"] = {"clp": b[0], "src": b[1], "ida": b[2], "vuelta": b[3],
+                          "aerolinea": b[4], "escalas": b[5], "det": b[6], "link": b[7],
+                          "ts": b[8],
+                          "noches": (datetime.date.fromisoformat(b[3]) - datetime.date.fromisoformat(b[2])).days}
+        break
+    return n
 
 def minimos_de(live):
     """Mejor precio por serie para comparar entre ciclos (alimenta alertas)."""
@@ -919,6 +1036,14 @@ def main():
         cur = LIVE["fuentes"].get("playas")
         if cur is not None:
             cur["ok"] = False
+    # 8a-bis) Task 26: sincronizar la tarjeta GIG de 'Destinos' con el ciclo fresco
+    # (los más baratos y los destinos no pueden mostrar valores distintos).
+    try:
+        n_gig = sincronizar_gig_fresco(LIVE)
+        if n_gig:
+            print(f"Sync GIG OK: {n_gig} ventanas alineadas al ciclo fresco (JA/SKY/LA/Cocha)", flush=True)
+    except Exception as e:
+        print(f"Sync GIG FAIL: {str(e)[:80]}", flush=True)
     # (espejo Google eliminado por pedido del usuario)
     LIVE["fuentes"].pop("google", None)
 
