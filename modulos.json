@@ -1,0 +1,161 @@
+{
+  "version": 1,
+  "proyecto": "vuelos-rio-live",
+  "nota": "Registro canónico y NUMERADO de todos los módulos de la web. Fuente de verdad para auditoria.py (numeración M01..Mnn en auditoria.json y en el panel del sitio), reparar.py (auto-reparación que barre todos los módulos ante cada falla) y verificación (verify.js). Agregar un módulo nuevo AQUÍ primero.",
+  "actualizado": "2026-10-30",
+  "modulos": [
+    {
+      "numero": "M01",
+      "id": "vuelos-jetsmart",
+      "nombre": "Vuelos JetSMART",
+      "archivos": ["scraper.py (fetch_jetsmart)"],
+      "que_hace": "Cotiza vía API oficial de JetSMART (network API, sin navegador); alimenta tiles y radar.",
+      "verificacion": "auditoria.py M01: frescura, plausibilidad, flag ok; verify.js 'tile presente: jetsmart'.",
+      "reparacion": "re-captura completa (scraper.py); la API no requiere WARP."
+    },
+    {
+      "numero": "M02",
+      "id": "vuelos-sky",
+      "nombre": "Vuelos SKY",
+      "archivos": ["scraper.py (fetch_sky)"],
+      "que_hace": "Cotiza tramos vía API Sputnik de SKY Airline.",
+      "verificacion": "auditoria.py M02; verify.js 'tile presente: sky'.",
+      "reparacion": "re-captura completa; reintento siguiente ciclo."
+    },
+    {
+      "numero": "M03",
+      "id": "vuelos-latam",
+      "nombre": "Vuelos LATAM",
+      "archivos": ["scraper.py (fetch_latam)"],
+      "que_hace": "Cotiza vía BFF de LATAM; combos ida/vuelta.",
+      "verificacion": "auditoria.py M03; verify.js 'tile presente: latam'.",
+      "reparacion": "re-captura completa; reintento siguiente ciclo."
+    },
+    {
+      "numero": "M04",
+      "id": "vuelos-cocha",
+      "nombre": "Vuelos Cocha",
+      "archivos": ["scraper.py (fetch_cocha/cocha_rt/cocha_ow)", "fetch_otas.py (scan_cocha)"],
+      "que_hace": "Redondos vía GraphQL de Cocha verificados contra la página real de resultados. Requiere WARP (WAF raciona por IP).",
+      "verificacion": "auditoria.py M04; verify.js checks 'cocha: ...'.",
+      "reparacion": "WARP boot + re-captura; espaciado COCHA_GAP y backoff en 403/429."
+    },
+    {
+      "numero": "M05",
+      "id": "vuelos-despegar",
+      "nombre": "Vuelos Despegar",
+      "archivos": ["fetch_otas.py (scan_despegar)", "scraper.py (merge)"],
+      "que_hace": "Grilla por fecha vía Camoufox+WARP (DataDome); tile con mejor combo real o degradación honesta a one-way.",
+      "verificacion": "auditoria.py M05; verify.js 'tile presente: despegar'.",
+      "reparacion": "re-captura WARP+Camoufox; acumulación conserva la última buena por fecha."
+    },
+    {
+      "numero": "M06",
+      "id": "vuelos-falabella",
+      "nombre": "Vuelos Viajes Falabella",
+      "archivos": ["fetch_otas.py (scan_falabella)", "scraper.py (merge)"],
+      "que_hace": "Igual que M05 sobre viajesfalabella.cl.",
+      "verificacion": "auditoria.py M06; verify.js 'tile presente: falabella'.",
+      "reparacion": "re-captura WARP+Camoufox; consistencia M07 cruza ambas."
+    },
+    {
+      "numero": "M07",
+      "id": "consistencia-otas",
+      "nombre": "Consistencia Despegar↔Falabella",
+      "archivos": ["auditoria.py"],
+      "que_hace": "Cruza mínimos de M05/M06; alerta si difieren más del umbral.",
+      "verificacion": "auditoria.py M07.",
+      "reparacion": "se re-evalúa sobre la re-captura de M05/M06."
+    },
+    {
+      "numero": "M08",
+      "id": "playas",
+      "nombre": "Playas del extranjero",
+      "archivos": ["scraper.py (fetch_playas/combos_playas)", "fetch_otas.py"],
+      "que_hace": "16 destinos de playa: redondos Cocha rotativos + cruce one-way multi-aerolínea.",
+      "verificacion": "auditoria.py M08; verify.js checks de destinos y cruce.",
+      "reparacion": "rotación 2 destinos/ciclo con WARP; acumulación por fecha."
+    },
+    {
+      "numero": "M09",
+      "id": "viva-jetsmart",
+      "nombre": "Muestra viva JetSMART",
+      "archivos": ["auditoria.py (captura viva)"],
+      "que_hace": "Verificación activa 4×día: re-cotiza un tramo y lo compara con lo publicado.",
+      "verificacion": "auditoria.py M09.",
+      "reparacion": "se ejecuta en cada auditoría; sin bloqueo de publicación."
+    },
+    {
+      "numero": "M10",
+      "id": "viva-sky",
+      "nombre": "Muestra viva SKY",
+      "archivos": ["auditoria.py (captura viva)"],
+      "que_hace": "Igual que M09 sobre SKY.",
+      "verificacion": "auditoria.py M10.",
+      "reparacion": "idéntica a M09."
+    },
+    {
+      "numero": "M11",
+      "id": "cupones",
+      "nombre": "Cupones de descuento",
+      "archivos": ["fetch_coupons.py", "seed_coupons.json"],
+      "que_hace": "10 tiendas de viaje en cupon.cl (JetSMART, LATAM, Despegar, Cocha, Falabella, Atrápalo, Hoteles.com, Booking.com, Avianca, Grupo Xcaret) + capa editorial; códigos reales vía modal AJAX, vencidos filtrados.",
+      "verificacion": "auditoria.py M11 (frescura ≤7 días); verify.js 'cupones' estructural.",
+      "reparacion": "fetch_coupons.py re-ejecutado forzado; degradación suave conserva lo último bueno."
+    },
+    {
+      "numero": "M12",
+      "id": "stays",
+      "nombre": "Radar de alojamientos",
+      "archivos": ["fetch_stays.py", "alojamientos.html"],
+      "que_hace": "Precios de alojamiento por destino para la semana del viaje; alimenta alojamientos.html.",
+      "verificacion": "auditoria.py M12 (frescura, destinos con precio).",
+      "reparacion": "re-captura en el siguiente ciclo; degradación suave."
+    },
+    {
+      "numero": "M13",
+      "id": "noche",
+      "nombre": "Resumen nocturno (digest matutino)",
+      "archivos": ["send_alerts.py"],
+      "que_hace": "Congela mínimos a las 20:00 (Santiago), digest matutino con movimientos + cupones vigentes.",
+      "verificacion": "auditoria.py M13.",
+      "reparacion": "reprogramación automática en el ciclo nocturno."
+    },
+    {
+      "numero": "M14",
+      "id": "minimos",
+      "nombre": "Mínimos por serie (alertas)",
+      "archivos": ["scraper.py (series)", "send_alerts.py"],
+      "que_hace": "Mínimo histórico por serie; alertas de bajada en vivo (09:00-20:00 Santiago).",
+      "verificacion": "auditoria.py M14.",
+      "reparacion": "re-captura actualiza mínimos; dedupe vía estado_alertas.json."
+    },
+    {
+      "numero": "M15",
+      "id": "suscriptores",
+      "nombre": "Suscriptores de alertas",
+      "archivos": ["notificaciones.py", "subscribers.enc.json", "index.html (form RSA)"],
+      "que_hace": "Alta/baja con correo cifrado RSA-2048 en el navegador.",
+      "verificacion": "auditoria.py M15; verify.js maskEmail/suscriptores.",
+      "reparacion": "módulo local; fallos cortan el gate vía verify.js."
+    },
+    {
+      "numero": "M16",
+      "id": "assets",
+      "nombre": "Imágenes de destinos",
+      "archivos": ["assets/"],
+      "que_hace": "Fotos de destinos para Ofertas/Destinos.",
+      "verificacion": "auditoria.py M16; verify.js assets.",
+      "reparacion": "estático; fix de repositorio si falta alguna."
+    },
+    {
+      "numero": "M17",
+      "id": "sitio",
+      "nombre": "Funcional del sitio (arneses de regresión)",
+      "archivos": ["verify.js", "index.html", "auditoria.py (sitio)"],
+      "que_hace": "GATE final: verify.js corta la publicación si algo falla; auditor ejecuta arneses.",
+      "verificacion": "verify.js rc=0; auditoria.py M17 'sitio'.",
+      "reparacion": "si verify falla NO se publica; auto-reparación re-captura y las anotaciones nombran el check."
+    }
+  ]
+}
