@@ -1,7 +1,7 @@
 {
- "ts": "2026-10-31 17:50:43",
- "ts_stgo": "2026-10-31 14:50:43",
- "n": 42,
+ "ts": "2026-10-31 20:34:04",
+ "ts_stgo": "2026-10-31 17:34:04",
+ "n": 43,
  "total": 17,
  "ok": 17,
  "alertas": 0,
@@ -22,7 +22,7 @@
    "estado": "OK",
    "color": "#10b981",
    "frescura_h": 0.1,
-   "detalle": "mínimo $355,852.0 · 37 registros · fresco 0.1 h (límite 26 h)",
+   "detalle": "mínimo $356,863.0 · 13 registros · fresco 0.1 h (límite 26 h)",
    "muestra": []
   },
   {
@@ -48,8 +48,8 @@
    "nombre": "M05 · Vuelos Despegar",
    "estado": "OK",
    "color": "#10b981",
-   "frescura_h": 0.6,
-   "detalle": "mínimo $166,124 · 2 registros · fresco 0.6 h (límite 30 h)",
+   "frescura_h": 0.3,
+   "detalle": "mínimo $159,916 · 2 registros · fresco 0.3 h (límite 30 h)",
    "muestra": []
   },
   {
@@ -57,8 +57,8 @@
    "nombre": "M06 · Vuelos Viajes Falabella",
    "estado": "OK",
    "color": "#10b981",
-   "frescura_h": 0.6,
-   "detalle": "mínimo $166,634 · 2 registros · fresco 0.6 h (límite 30 h)",
+   "frescura_h": 0.3,
+   "detalle": "mínimo $159,916 · 2 registros · fresco 0.3 h (límite 30 h)",
    "muestra": []
   },
   {
@@ -67,84 +67,93 @@
    "estado": "OK",
    "color": "#10b981",
    "frescura_h": null,
-   "detalle": "diferencia 0% ($166,124 vs $166,634) — coherentes",
+   "detalle": "diferencia 0% ($159,916 vs $159,916) — coherentes",
    "muestra": []
   },
   {
    "id": "playas",
    "nombre": "M08 · Playas del extranjero",
-   "estado": "CORREGIDO",
+   "estado": "OK",
    "color": "#10b981",
    "frescura_h": 0.1,
-   "detalle": "16 destinos · 16 con precio · mínimo $271,720 · ventanas exactas 105/flex 0 · fresco 0.1 h · CORREGIDOS EN VIVO: GIG (exactas 105, flex 0)",
+   "detalle": "16 destinos · 16 con precio · mínimo $271,720 · ventanas exactas 105/flex 0 · fresco 0.1 h · muestra viva verificada 6/6 (exactas 105, flex 0)",
    "muestra": [
     {
-     "cod": "HAV",
-     "ida": "2026-11-21",
-     "vuelta": "2026-11-30",
-     "pub": 660186,
-     "vivo": 661924,
-     "diff_pct": 0.3,
-     "exacta": true,
-     "aerolinea": "Copa",
-     "veredicto": "VERIFICADO"
-    },
-    {
-     "cod": "PTY",
-     "ida": "2026-11-21",
-     "vuelta": "2026-11-30",
-     "pub": 710151,
-     "vivo": 712312,
-     "diff_pct": 0.3,
-     "exacta": true,
-     "aerolinea": "Avianca",
-     "veredicto": "VERIFICADO"
-    },
-    {
-     "cod": "CUN",
+     "cod": "CTG",
      "ida": "2026-11-22",
      "vuelta": "2026-12-01",
-     "pub": 725066,
-     "vivo": 725066,
-     "diff_pct": 0.0,
-     "exacta": true,
-     "aerolinea": "Aeroméxico",
-     "veredicto": "VERIFICADO"
-    },
-    {
-     "cod": "LIR",
-     "ida": "2026-11-01",
-     "vuelta": "2026-11-30",
-     "pub": 2262823,
-     "vivo": 2269709,
-     "diff_pct": 0.3,
-     "exacta": true,
-     "aerolinea": "AA",
-     "veredicto": "VERIFICADO"
-    },
-    {
-     "cod": "GIG",
-     "ida": "2026-11-22",
-     "vuelta": "2026-12-04",
-     "pub": 271720,
-     "vivo": 333165,
-     "diff_pct": 22.6,
-     "exacta": true,
-     "aerolinea": "JetSMART",
-     "veredicto": "CORREGIDO"
-    },
-    {
-     "cod": "FLN",
-     "ida": "2026-11-22",
-     "vuelta": "2026-12-01",
-     "pub": 310339,
-     "vivo": 310339,
+     "pub": 455022,
+     "vivo": 455022,
      "diff_pct": 0.0,
      "exacta": true,
      "aerolinea": "JetSMART",
+     "veredicto": "VERIFICADO"
+    },
+    {
+     "cod": "SSA",
+     "ida": "2026-11-22",
+     "vuelta": "2026-12-01",
+     "pub": 513631,
+     "vivo": 513631,
+     "diff_pct": 0.0,
+     "exacta": true,
+     "aerolinea": "SKY",
+     "veredicto": "VERIFICADO"
+    },
+    {
+     "cod": "REC",
+     "ida": "2026-11-21",
+     "vuelta": "2026-11-30",
+     "pub": 518236,
+     "vivo": 497715,
+     "diff_pct": 4.0,
+     "exacta": true,
+     "aerolinea": "LATAM",
+     "veredicto": "VERIFICADO"
+    },
+    {
+     "cod": "SJO",
+     "ida": "2026-11-22",
+     "vuelta": "2026-12-01",
+     "pub": 522398,
+     "vivo": 522398,
+     "diff_pct": 0.0,
+     "exacta": true,
+     "aerolinea": "LATAM",
+     "veredicto": "VERIFICADO"
+    },
+    {
+     "cod": "FOR",
+     "ida": "2026-11-09",
+     "vuelta": "2026-11-18",
+     "pub": 534266,
+     "vivo": 534581,
+     "diff_pct": 0.1,
+     "exacta": true,
+     "aerolinea": "LATAM",
+     "veredicto": "VERIFICADO"
+    },
+    {
+     "cod": "NAT",
+     "ida": "2026-11-09",
+     "vuelta": "2026-11-18",
+     "pub": 561574,
+     "vivo": 563092,
+     "diff_pct": 0.3,
+     "exacta": true,
+     "aerolinea": "LATAM",
      "veredicto": "VERIFICADO"
     }
    ]
+  },
+  {
+   "id": "viva-latam",
+   "nombre": "Muestra viva LATAM",
+   "estado": "VERIFICADO",
+   "color": "#10b981",
+   "frescura_h": null,
+   "detalle": "publicado $372,687 ≈ vivo $372,687 (0.0%) — el precio publicado es REAL",
+   "muestra": []
   },
   {
    "id": "viva-jetsmart",
@@ -156,21 +165,12 @@
    "muestra": []
   },
   {
-   "id": "viva-sky",
-   "nombre": "M10 · Muestra viva SKY",
-   "estado": "VERIFICADO",
-   "color": "#10b981",
-   "frescura_h": null,
-   "detalle": "publicado $355,852.0 ≈ vivo $355,852.0 (0.0%) — el precio publicado es REAL",
-   "muestra": []
-  },
-  {
    "id": "cupones",
    "nombre": "M11 · Cupones de descuento",
    "estado": "OK",
    "color": "#10b981",
-   "frescura_h": 4.0,
-   "detalle": "84 cupones vigentes · fresco 4.0 h",
+   "frescura_h": 0.5,
+   "detalle": "85 cupones vigentes · fresco 0.5 h",
    "muestra": []
   },
   {
@@ -178,8 +178,8 @@
    "nombre": "M12 · Radar de alojamientos",
    "estado": "OK",
    "color": "#10b981",
-   "frescura_h": 4.0,
-   "detalle": "10/10 destinos con precio · fresco 4.0 h",
+   "frescura_h": 0.5,
+   "detalle": "10/10 destinos con precio · fresco 0.5 h",
    "muestra": []
   },
   {
