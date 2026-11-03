@@ -1,7 +1,7 @@
 {
- "ts": "2026-11-02 23:58:30",
- "ts_stgo": "2026-11-02 20:58:30",
- "n": 51,
+ "ts": "2026-11-03 02:59:07",
+ "ts_stgo": "2026-11-02 23:59:07",
+ "n": 52,
  "total": 17,
  "ok": 17,
  "alertas": 0,
@@ -12,8 +12,8 @@
    "nombre": "M01 · Vuelos JetSMART",
    "estado": "OK",
    "color": "#10b981",
-   "frescura_h": 0.0,
-   "detalle": "mínimo $272,458 · 20 registros · fresco 0.0 h (límite 26 h)",
+   "frescura_h": 0.1,
+   "detalle": "mínimo $272,458 · 20 registros · fresco 0.1 h (límite 26 h)",
    "muestra": []
   },
   {
@@ -21,8 +21,8 @@
    "nombre": "M02 · Vuelos SKY",
    "estado": "OK",
    "color": "#10b981",
-   "frescura_h": 0.0,
-   "detalle": "mínimo $316,117.0 · 34 registros · fresco 0.0 h (límite 26 h)",
+   "frescura_h": 0.1,
+   "detalle": "mínimo $316,117.0 · 37 registros · fresco 0.1 h (límite 26 h)",
    "muestra": []
   },
   {
@@ -30,8 +30,8 @@
    "nombre": "M03 · Vuelos LATAM",
    "estado": "OK",
    "color": "#10b981",
-   "frescura_h": 0.0,
-   "detalle": "mínimo $451,807 · 20 registros · fresco 0.0 h (límite 26 h)",
+   "frescura_h": 0.1,
+   "detalle": "mínimo $451,807 · 20 registros · fresco 0.1 h (límite 26 h)",
    "muestra": []
   },
   {
@@ -39,8 +39,8 @@
    "nombre": "M04 · Vuelos Cocha",
    "estado": "OK",
    "color": "#10b981",
-   "frescura_h": 0.2,
-   "detalle": "mínimo $312,001 · 3 registros · fresco 0.2 h (límite 30 h)",
+   "frescura_h": 0.6,
+   "detalle": "mínimo $301,418 · 3 registros · fresco 0.6 h (límite 30 h)",
    "muestra": []
   },
   {
@@ -48,8 +48,8 @@
    "nombre": "M05 · Vuelos Despegar",
    "estado": "OK",
    "color": "#10b981",
-   "frescura_h": 0.4,
-   "detalle": "mínimo $140,133 · 2 registros · fresco 0.4 h (límite 30 h)",
+   "frescura_h": 0.6,
+   "detalle": "mínimo $139,962 · 2 registros · fresco 0.6 h (límite 30 h)",
    "muestra": []
   },
   {
@@ -57,8 +57,8 @@
    "nombre": "M06 · Vuelos Viajes Falabella",
    "estado": "OK",
    "color": "#10b981",
-   "frescura_h": 0.4,
-   "detalle": "mínimo $140,133 · 2 registros · fresco 0.4 h (límite 30 h)",
+   "frescura_h": 0.6,
+   "detalle": "mínimo $186,921 · 2 registros · fresco 0.6 h (límite 30 h)",
    "muestra": []
   },
   {
@@ -67,7 +67,7 @@
    "estado": "OK",
    "color": "#10b981",
    "frescura_h": null,
-   "detalle": "diferencia 0% ($140,133 vs $140,133) — coherentes",
+   "detalle": "diferencia 34% ($139,962 vs $186,921) — coherentes",
    "muestra": []
   },
   {
@@ -75,76 +75,85 @@
    "nombre": "M08 · Playas del extranjero",
    "estado": "OK",
    "color": "#10b981",
-   "frescura_h": 0.0,
-   "detalle": "16 destinos · 16 con precio · mínimo $271,720 · ventanas exactas 112/flex 0 · fresco 0.0 h · muestra viva verificada 6/6 (exactas 112, flex 0)",
+   "frescura_h": 0.1,
+   "detalle": "16 destinos · 16 con precio · mínimo $271,720 · ventanas exactas 112/flex 0 · fresco 0.1 h · muestra viva verificada 6/6 (exactas 112, flex 0)",
    "muestra": [
     {
-     "cod": "CTG",
-     "ida": "2026-11-23",
-     "vuelta": "2026-12-02",
-     "pub": 468840,
-     "vivo": 440509,
-     "diff_pct": 6.0,
-     "exacta": true,
-     "aerolinea": "JetSMART",
-     "veredicto": "VERIFICADO"
-    },
-    {
-     "cod": "PUJ",
-     "ida": "2026-11-03",
-     "vuelta": "2026-12-02",
-     "pub": 494033,
-     "vivo": 494033,
-     "diff_pct": 0.0,
-     "exacta": true,
-     "aerolinea": "Copa",
-     "veredicto": "VERIFICADO"
-    },
-    {
-     "cod": "FOR",
-     "ida": "2026-11-24",
-     "vuelta": "2026-12-03",
-     "pub": 498142,
-     "vivo": 498142,
+     "cod": "MCZ",
+     "ida": "2026-11-25",
+     "vuelta": "2026-12-04",
+     "pub": 544596,
+     "vivo": 544596,
      "diff_pct": 0.0,
      "exacta": true,
      "aerolinea": "LATAM",
      "veredicto": "VERIFICADO"
     },
     {
-     "cod": "SJO",
-     "ida": "2026-11-03",
-     "vuelta": "2026-12-02",
-     "pub": 501859,
-     "vivo": 536364,
-     "diff_pct": 6.9,
-     "exacta": true,
-     "aerolinea": "Copa",
-     "veredicto": "VERIFICADO"
-    },
-    {
-     "cod": "REC",
+     "cod": "NAT",
      "ida": "2026-11-24",
      "vuelta": "2026-12-03",
-     "pub": 502571,
-     "vivo": 502571,
+     "pub": 563092,
+     "vivo": 563092,
      "diff_pct": 0.0,
      "exacta": true,
      "aerolinea": "LATAM",
      "veredicto": "VERIFICADO"
     },
     {
-     "cod": "SSA",
+     "cod": "BPS",
+     "ida": "2026-11-12",
+     "vuelta": "2026-11-21",
+     "pub": 565577,
+     "vivo": 565577,
+     "diff_pct": 0.0,
+     "exacta": true,
+     "aerolinea": "LATAM",
+     "veredicto": "VERIFICADO"
+    },
+    {
+     "cod": "ADZ",
+     "ida": "2026-11-05",
+     "vuelta": "2026-12-04",
+     "pub": 601912,
+     "vivo": 601912,
+     "diff_pct": 0.0,
+     "exacta": true,
+     "aerolinea": "LATAM",
+     "veredicto": "VERIFICADO"
+    },
+    {
+     "cod": "HAV",
+     "ida": "2026-11-25",
+     "vuelta": "2026-12-04",
+     "pub": 661924,
+     "vivo": 662113,
+     "diff_pct": 0.0,
+     "exacta": true,
+     "aerolinea": "Copa",
+     "veredicto": "VERIFICADO"
+    },
+    {
+     "cod": "CUN",
      "ida": "2026-11-24",
      "vuelta": "2026-12-03",
-     "pub": 516793,
-     "vivo": 516793,
-     "diff_pct": 0.0,
+     "pub": 690887,
+     "vivo": 694381,
+     "diff_pct": 0.5,
      "exacta": true,
      "aerolinea": "LATAM",
      "veredicto": "VERIFICADO"
     }
    ]
+  },
+  {
+   "id": "viva-latam",
+   "nombre": "Muestra viva LATAM",
+   "estado": "VERIFICADO",
+   "color": "#10b981",
+   "frescura_h": null,
+   "detalle": "publicado $451,807 ≈ vivo $451,807 (0.0%) — el precio publicado es REAL",
+   "muestra": []
   },
   {
    "id": "viva-jetsmart",
@@ -156,21 +165,12 @@
    "muestra": []
   },
   {
-   "id": "viva-sky",
-   "nombre": "M10 · Muestra viva SKY",
-   "estado": "VERIFICADO",
-   "color": "#10b981",
-   "frescura_h": null,
-   "detalle": "publicado $316,117.0 ≈ vivo $316,117.0 (0.0%) — el precio publicado es REAL",
-   "muestra": []
-  },
-  {
    "id": "cupones",
    "nombre": "M11 · Cupones de descuento",
    "estado": "OK",
    "color": "#10b981",
-   "frescura_h": 2.5,
-   "detalle": "90 cupones vigentes · fresco 2.5 h",
+   "frescura_h": 5.5,
+   "detalle": "90 cupones vigentes · fresco 5.5 h",
    "muestra": []
   },
   {
@@ -178,8 +178,8 @@
    "nombre": "M12 · Radar de alojamientos",
    "estado": "OK",
    "color": "#10b981",
-   "frescura_h": 2.5,
-   "detalle": "9/10 destinos con precio · fresco 2.5 h",
+   "frescura_h": 5.5,
+   "detalle": "9/10 destinos con precio · fresco 5.5 h",
    "muestra": []
   },
   {
