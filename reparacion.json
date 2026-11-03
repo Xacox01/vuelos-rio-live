@@ -1,7 +1,7 @@
 {
- "ts": "2026-11-03 05:20:34",
- "ts_stgo": "2026-11-03 02:20:34",
- "trigger": "manual",
+ "ts": "2026-11-03 18:02:06",
+ "ts_stgo": "2026-11-03 15:02:06",
+ "trigger": "fallo de refresh #5891",
  "gate_publicado": "PASS",
  "gate_final": "PASS",
  "recaptura": true,
@@ -10,7 +10,7 @@
   {
    "cmd": "scraper.py",
    "rc": 0,
-   "tail": "playas SJO 2026-11-25: $522,925 [exacta]\nplayas PTY 2026-11-25: $715,913 [exacta]\nPlayas OK: 6/16 bajo $500,000 | mejor: exacta Río de Janeiro $271,720\nSync GIG OK: 7 ventanas alineadas al ciclo fresco (JA/SKY/LA/Cocha)\nCAMBIO DE PRECIOS detectado\ndata.json actualizado"
+   "tail": "playas PTY 2026-11-13: $715,913 [exacta]\nPlayas OK: 5/16 bajo $500,000 | mejor: exacta Río de Janeiro $244,014\nSync GIG OK: 7 ventanas alineadas al ciclo fresco (JA/SKY/LA/Cocha)\nCAMBIO DE PRECIOS detectado\nALERTA: Cocha SCL-Río $284,753→$270,927\ndata.json actualizado"
   },
   {
    "cmd": "fetch_coupons.py",
@@ -23,7 +23,7 @@
    "tail": "bus_alertas[ENSURE]: vivo=True uuid=…4542b5bb rotado=False"
   }
  ],
- "secs": 290.7,
+ "secs": 319.9,
  "modulos": [
   {
    "numero": "M01",
@@ -38,7 +38,7 @@
    "id": "vuelos-sky",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "37 pares · fresco 0.1 h",
+   "detalle": "38 pares · fresco 0.1 h",
    "accion": "sin cambio"
   },
   {
@@ -62,7 +62,7 @@
    "id": "vuelos-despegar",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "2 fechas en grilla · fresco 0.7 h",
+   "detalle": "2 fechas en grilla · fresco 0.8 h",
    "accion": "sin cambio"
   },
   {
@@ -70,7 +70,7 @@
    "id": "vuelos-falabella",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "2 fechas en grilla · fresco 0.7 h",
+   "detalle": "2 fechas en grilla · fresco 0.8 h",
    "accion": "sin cambio"
   },
   {
@@ -86,7 +86,7 @@
    "id": "playas",
    "antes": "ALERTA",
    "despues": "ALERTA",
-   "detalle": "tarjeta GIG desfasada del ciclo fresco (mejor.ts=2026-11-02 13:27:41) — la re-captura re-sincroniza con 'Precios hoy'",
+   "detalle": "tarjeta GIG desfasada del ciclo fresco (mejor.ts=2026-11-03 15:22:20) — la re-captura re-sincroniza con 'Precios hoy'",
    "accion": "sin cambio"
   },
   {
@@ -118,7 +118,7 @@
    "id": "stays",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "10 destinos con precio · fresco 1.6 h",
+   "detalle": "10 destinos con precio · fresco 2.0 h",
    "accion": "sin cambio"
   },
   {
