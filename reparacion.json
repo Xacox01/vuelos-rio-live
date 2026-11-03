@@ -1,12 +1,12 @@
 {
- "ts": "2026-11-03 18:09:41",
- "ts_stgo": "2026-11-03 15:09:41",
- "trigger": "fallo de refresh #5892",
+ "ts": "2026-11-03 19:27:53",
+ "ts_stgo": "2026-11-03 16:27:53",
+ "trigger": "fallo de refresh #5901",
  "gate_publicado": "PASS",
  "gate_final": "PASS",
  "recaptura": false,
  "motivos_recaptura_omitida": [
-  "última reparación hace 8 min (< 90) y el dato publicado pasa el gate — anti-bucle"
+  "última reparación hace 78 min (< 90) y el dato publicado pasa el gate — anti-bucle"
  ],
  "comandos": [
   {
@@ -15,14 +15,14 @@
    "tail": "bus_alertas[ENSURE]: vivo=True uuid=…4542b5bb rotado=False"
   }
  ],
- "secs": 3.4,
+ "secs": 1.6,
  "modulos": [
   {
    "numero": "M01",
    "id": "vuelos-jetsmart",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "20 combos · fresco 0.2 h",
+   "detalle": "20 combos · fresco 0.3 h",
    "accion": "sin cambio"
   },
   {
@@ -30,7 +30,7 @@
    "id": "vuelos-sky",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "38 pares · fresco 0.2 h",
+   "detalle": "37 pares · fresco 0.3 h",
    "accion": "sin cambio"
   },
   {
@@ -38,7 +38,7 @@
    "id": "vuelos-latam",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "20 combos · fresco 0.2 h",
+   "detalle": "20 combos · fresco 0.3 h",
    "accion": "sin cambio"
   },
   {
@@ -46,7 +46,7 @@
    "id": "vuelos-cocha",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "3 ventanas (mínimos verificados) · fresco 0.2 h",
+   "detalle": "3 ventanas (mínimos verificados) · fresco 0.7 h",
    "accion": "sin cambio"
   },
   {
@@ -54,7 +54,7 @@
    "id": "vuelos-despegar",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "2 fechas en grilla · fresco 0.9 h",
+   "detalle": "2 fechas en grilla · fresco 0.7 h",
    "accion": "sin cambio"
   },
   {
@@ -62,7 +62,7 @@
    "id": "vuelos-falabella",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "2 fechas en grilla · fresco 0.9 h",
+   "detalle": "2 fechas en grilla · fresco 0.7 h",
    "accion": "sin cambio"
   },
   {
@@ -76,9 +76,9 @@
   {
    "numero": "M08",
    "id": "playas",
-   "antes": "ALERTA",
-   "despues": "ALERTA",
-   "detalle": "tarjeta GIG desfasada del ciclo fresco (mejor.ts=2026-11-03 15:22:20) — la re-captura re-sincroniza con 'Precios hoy'",
+   "antes": "OK",
+   "despues": "OK",
+   "detalle": "16/16 destinos · GIG sincronizado (17 min) · fresco 0.3 h",
    "accion": "sin cambio"
   },
   {
@@ -102,7 +102,7 @@
    "id": "cupones",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "90 cupones (7 con código) · fresco 0.1 h",
+   "detalle": "90 cupones (7 con código) · fresco 1.4 h",
    "accion": "sin cambio"
   },
   {
@@ -110,7 +110,7 @@
    "id": "stays",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "10 destinos con precio · fresco 2.1 h",
+   "detalle": "10 destinos con precio · fresco 3.4 h",
    "accion": "sin cambio"
   },
   {
@@ -154,5 +154,5 @@
    "accion": "sin cambio"
   }
  ],
- "resumen": "14/17 módulos OK tras la reparación"
+ "resumen": "15/17 módulos OK tras la reparación"
 }
