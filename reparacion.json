@@ -1,28 +1,36 @@
 {
- "ts": "2026-11-04 01:53:21",
- "ts_stgo": "2026-11-03 22:53:21",
- "trigger": "fallo de refresh #5951",
+ "ts": "2026-11-04 06:43:29",
+ "ts_stgo": "2026-11-04 03:43:29",
+ "trigger": "fallo de refresh #5987",
  "gate_publicado": "PASS",
  "gate_final": "PASS",
- "recaptura": false,
- "motivos_recaptura_omitida": [
-  "última reparación hace 7 min (< 90) y el dato publicado pasa el gate — anti-bucle"
- ],
+ "recaptura": true,
+ "motivos_recaptura_omitida": [],
  "comandos": [
+  {
+   "cmd": "scraper.py",
+   "rc": 0,
+   "tail": "playas PTY 2026-11-06: $710,871 [exacta]\nPlayas OK: 5/16 bajo $500,000 | mejor: exacta Río de Janeiro $244,014\nSync GIG OK: 12 ventanas alineadas al ciclo fresco (JA/SKY/LA/Cocha)\nCAMBIO DE PRECIOS detectado\nALERTA: LATAM SCL-Río $453,990→$312,613; Playas BPS $564,180→$561,288\ndata.json actualizado"
+  },
+  {
+   "cmd": "fetch_coupons.py",
+   "rc": 0,
+   "tail": "vuelos (mínimo $600.000)\n   · [CÓD PAQUETESCOPA80] Despegar         Despegar: $80.000 OFF en paquetes (mínimo $600.000)\n   · [CÓD AFILIADOSVUE] Cocha            $50.000 de Descuento en Vuelos con Cupón Cocha\n   · [  CÓD MASTERJS] JetSMART         JetSMART + Mastercard: hasta 35% OFF nacional / 25% Suramérica\n   · [     beneficio] JetSMART         Caja Los Andes: hasta 25% dcto en JetSMART (socios)"
+  },
   {
    "cmd": "bus_alertas.py",
    "rc": 0,
    "tail": "bus_alertas[ENSURE]: vivo=True uuid=…4542b5bb rotado=False"
   }
  ],
- "secs": 2.2,
+ "secs": 261.0,
  "modulos": [
   {
    "numero": "M01",
    "id": "vuelos-jetsmart",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "20 combos · fresco 0.2 h",
+   "detalle": "20 combos · fresco 0.1 h",
    "accion": "sin cambio"
   },
   {
@@ -30,7 +38,7 @@
    "id": "vuelos-sky",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "45 pares · fresco 0.2 h",
+   "detalle": "38 pares · fresco 0.1 h",
    "accion": "sin cambio"
   },
   {
@@ -38,7 +46,7 @@
    "id": "vuelos-latam",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "20 combos · fresco 0.2 h",
+   "detalle": "20 combos · fresco 0.1 h",
    "accion": "sin cambio"
   },
   {
@@ -46,7 +54,7 @@
    "id": "vuelos-cocha",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "3 ventanas (mínimos verificados) · fresco 0.2 h",
+   "detalle": "3 ventanas (mínimos verificados) · fresco 0.0 h",
    "accion": "sin cambio"
   },
   {
@@ -54,7 +62,7 @@
    "id": "vuelos-despegar",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "2 fechas en grilla · fresco 0.7 h",
+   "detalle": "2 fechas en grilla · fresco 0.9 h",
    "accion": "sin cambio"
   },
   {
@@ -62,7 +70,7 @@
    "id": "vuelos-falabella",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "2 fechas en grilla · fresco 0.7 h",
+   "detalle": "2 fechas en grilla · fresco 0.9 h",
    "accion": "sin cambio"
   },
   {
@@ -102,7 +110,7 @@
    "id": "cupones",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "90 cupones (7 con código) · fresco 0.1 h",
+   "detalle": "90 cupones (7 con código) · fresco 0.0 h",
    "accion": "sin cambio"
   },
   {
@@ -110,7 +118,7 @@
    "id": "stays",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "10 destinos con precio · fresco 3.6 h",
+   "detalle": "10 destinos con precio · fresco 2.2 h",
    "accion": "sin cambio"
   },
   {
