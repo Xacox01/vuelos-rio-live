@@ -1,7 +1,7 @@
 {
- "ts": "2026-11-05 20:59:23",
- "ts_stgo": "2026-11-05 17:59:23",
- "trigger": "fallo de refresh #6213",
+ "ts": "2026-11-05 23:31:41",
+ "ts_stgo": "2026-11-05 20:31:41",
+ "trigger": "fallo de refresh #6236",
  "gate_publicado": "PASS",
  "gate_final": "PASS",
  "recaptura": true,
@@ -10,7 +10,7 @@
   {
    "cmd": "scraper.py",
    "rc": 0,
-   "tail": "playas SJO 2026-11-27: $531,481 [exacta]\nplayas PTY 2026-11-27: $705,828 [exacta]\nPlayas OK: 5/16 bajo $500,000 | mejor: exacta Río de Janeiro $240,471\nSync GIG OK: 16 ventanas alineadas al ciclo fresco (JA/SKY/LA/Cocha)\nCAMBIO DE PRECIOS detectado\ndata.json actualizado"
+   "tail": "playas SJO 2026-11-27: $531,481 [exacta]\nplayas PTY 2026-11-27: $720,913 [exacta]\nPlayas OK: 5/16 bajo $500,000 | mejor: exacta Río de Janeiro $240,471\nSync GIG OK: 19 ventanas alineadas al ciclo fresco (JA/SKY/LA/Cocha)\nCAMBIO DE PRECIOS detectado\ndata.json actualizado"
   },
   {
    "cmd": "fetch_coupons.py",
@@ -23,7 +23,7 @@
    "tail": "bus_alertas[ENSURE]: vivo=True uuid=…4542b5bb rotado=False"
   }
  ],
- "secs": 279.6,
+ "secs": 281.7,
  "modulos": [
   {
    "numero": "M01",
@@ -38,7 +38,7 @@
    "id": "vuelos-sky",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "50 pares · fresco 0.1 h",
+   "detalle": "56 pares · fresco 0.1 h",
    "accion": "sin cambio"
   },
   {
@@ -62,7 +62,7 @@
    "id": "vuelos-despegar",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "2 fechas en grilla · fresco 0.4 h",
+   "detalle": "2 fechas en grilla · fresco 0.6 h",
    "accion": "sin cambio"
   },
   {
@@ -70,7 +70,7 @@
    "id": "vuelos-falabella",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "2 fechas en grilla · fresco 0.4 h",
+   "detalle": "2 fechas en grilla · fresco 0.6 h",
    "accion": "sin cambio"
   },
   {
@@ -118,7 +118,7 @@
    "id": "stays",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "10 destinos con precio · fresco 2.5 h",
+   "detalle": "10 destinos con precio · fresco 5.0 h",
    "accion": "sin cambio"
   },
   {
@@ -126,7 +126,7 @@
    "id": "noche",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "congelamiento del 2026-11-04 · 20 series",
+   "detalle": "congelamiento del 2026-11-05 · 20 series",
    "accion": "sin cambio"
   },
   {
