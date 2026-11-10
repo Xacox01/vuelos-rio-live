@@ -136,6 +136,7 @@ ok(Array.isArray(cp) && cp.length >= 10, 'cupones >= 10', cp.length);
 ok(cp.every(c => c.id && c.merchant && c.title && (c.url || '').startsWith('http')), 'cupones con campos minimos');
 ok(cp.some(c => c.code && /^[A-Za-z0-9\-_.]{3,30}$/.test(c.code)), 'hay al menos 1 codigo real', cp.filter(c => c.code).map(c => c.code));
 ok(cp.some(c => c.verified), 'hay cupones verificados');
+ok(vm.cupones.filter(c => c.kind === 'oferta').length === 0, 'sin ofertas de vuelo en cupones (solo codigos/beneficios)', vm.cupones.filter(c => c.kind === 'oferta').length);
 ok(vm.cuponesVisibles.length === cp.length, 'filtro "todas" muestra todo');
 if (vm.merchants.length) { vm.cpF = vm.merchants[0]; ok(vm.cuponesVisibles.every(c => c.merchant === vm.merchants[0]), 'filtro por merchant funciona'); vm.cpF = 'todas'; }
 

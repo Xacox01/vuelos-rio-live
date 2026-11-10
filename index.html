@@ -1059,8 +1059,11 @@ createApp({
     ofertas(){ return this.destinos.filter(d=>d.cod!=='GIG').slice(0,6); },
     ofertaRio(){ return this.destinos.find(d=>d.cod==='GIG')||null; },
 
-    /* ---- cupones ---- */
-    cupones(){ return (this.D&&this.D.cupones&&this.D.cupones.items)||[]; },
+    /* ---- cupones: solo códigos y beneficios reales; las ofertas de precio de
+       vuelos (kind='oferta') y los vencidos (expired) se excluyen aquí y en el
+       fetcher — alineado con qwen (fix 10-nov: la sección mostraba 84 ofertas
+       como "cupones" y el gate las contaba como válidos) ---- */
+    cupones(){ const a=(this.D&&this.D.cupones&&this.D.cupones.items)||[]; return a.filter(c=>c.kind!=='oferta'&&!c.expired); },
     merchants(){ return [...new Set(this.cupones.map(c=>c.merchant))]; },
     cuponesVisibles(){ return this.cpF==='todas'?this.cupones:this.cupones.filter(c=>c.merchant===this.cpF); },
 
