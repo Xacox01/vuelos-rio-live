@@ -1,28 +1,36 @@
 {
- "ts": "2026-11-09 17:58:39",
- "ts_stgo": "2026-11-09 14:58:39",
- "trigger": "fallo de refresh #6998",
- "gate_publicado": "PASS",
+ "ts": "2026-11-10 03:56:05",
+ "ts_stgo": "2026-11-10 00:56:05",
+ "trigger": "fallo de refresh #7067",
+ "gate_publicado": "FAIL",
  "gate_final": "PASS",
- "recaptura": false,
- "motivos_recaptura_omitida": [
-  "última reparación hace 7 min (< 90) y el dato publicado pasa el gate — anti-bucle"
- ],
+ "recaptura": true,
+ "motivos_recaptura_omitida": [],
  "comandos": [
+  {
+   "cmd": "scraper.py",
+   "rc": 0,
+   "tail": "playas SJO 2026-12-02: $553,942 [exacta]\nplayas PTY 2026-12-02: $714,293 [exacta]\nPlayas OK: 5/16 bajo $500,000 | mejor: exacta Río de Janeiro $325,608\nSync GIG OK: 17 ventanas alineadas al ciclo fresco (JA/SKY/LA/Cocha)\nCAMBIO DE PRECIOS detectado\ndata.json actualizado"
+  },
+  {
+   "cmd": "fetch_coupons.py",
+   "rc": 0,
+   "tail": "en paquetes (mínimo $600.000)\n   · [CÓD AFILIADOSVUE] Cocha            $50.000 de descuento en Vuelos con Cupón Cocha\n   · [  CÓD MASTERJS] JetSMART         JetSMART + Mastercard: hasta 35% OFF nacional / 25% Suramérica\n   · [     beneficio] JetSMART         Caja Los Andes: hasta 25% dcto en JetSMART (socios)\n   · [     beneficio] Despegar         Caja Los Andes: hasta 7% dcto en Despegar (socios)"
+  },
   {
    "cmd": "bus_alertas.py",
    "rc": 0,
-   "tail": "bus_alertas[ENSURE]: vivo=True uuid=…4542b5bb rotado=False"
+   "tail": "bus_alertas[ENSURE]: vivo=True uuid=…f4cf1e10 rotado=False"
   }
  ],
- "secs": 4.0,
+ "secs": 276.6,
  "modulos": [
   {
    "numero": "M01",
    "id": "vuelos-jetsmart",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "20 combos · fresco 0.2 h",
+   "detalle": "20 combos · fresco 0.1 h",
    "accion": "sin cambio"
   },
   {
@@ -30,7 +38,7 @@
    "id": "vuelos-sky",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "81 pares · fresco 0.2 h",
+   "detalle": "85 pares · fresco 0.1 h",
    "accion": "sin cambio"
   },
   {
@@ -38,7 +46,7 @@
    "id": "vuelos-latam",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "20 combos · fresco 0.2 h",
+   "detalle": "20 combos · fresco 0.1 h",
    "accion": "sin cambio"
   },
   {
@@ -46,7 +54,7 @@
    "id": "vuelos-cocha",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "3 ventanas (mínimos verificados) · fresco 0.2 h",
+   "detalle": "3 ventanas (mínimos verificados) · fresco 0.1 h",
    "accion": "sin cambio"
   },
   {
@@ -54,7 +62,7 @@
    "id": "vuelos-despegar",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "2 fechas en grilla · fresco 0.9 h",
+   "detalle": "2 fechas en grilla · fresco 0.5 h",
    "accion": "sin cambio"
   },
   {
@@ -62,7 +70,7 @@
    "id": "vuelos-falabella",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "2 fechas en grilla · fresco 0.9 h",
+   "detalle": "2 fechas en grilla · fresco 0.5 h",
    "accion": "sin cambio"
   },
   {
@@ -77,9 +85,9 @@
    "numero": "M08",
    "id": "playas",
    "antes": "ALERTA",
-   "despues": "ALERTA",
-   "detalle": "tarjeta GIG desfasada del ciclo fresco (mejor.ts=2026-11-08 16:30:23) — la re-captura re-sincroniza con 'Precios hoy'",
-   "accion": "sin cambio"
+   "despues": "OK",
+   "detalle": "16/16 destinos · GIG sincronizado (0 min) · fresco 0.0 h",
+   "accion": "ALERTA → OK"
   },
   {
    "numero": "M09",
@@ -102,7 +110,7 @@
    "id": "cupones",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "93 cupones (6 con código) · fresco 0.1 h",
+   "detalle": "93 cupones (6 con código) · fresco 0.0 h",
    "accion": "sin cambio"
   },
   {
@@ -110,7 +118,7 @@
    "id": "stays",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "10 destinos con precio · fresco 2.1 h",
+   "detalle": "10 destinos con precio · fresco 5.9 h",
    "accion": "sin cambio"
   },
   {
@@ -118,7 +126,7 @@
    "id": "noche",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "congelamiento del 2026-11-08 · 20 series",
+   "detalle": "congelamiento del 2026-11-09 · 20 series",
    "accion": "sin cambio"
   },
   {
@@ -148,11 +156,11 @@
   {
    "numero": "M17",
    "id": "sitio",
-   "antes": "OK",
+   "antes": "FALLA",
    "despues": "OK",
    "detalle": "verify.js PASS sobre el dato a publicar",
-   "accion": "sin cambio"
+   "accion": "FALLA → OK"
   }
  ],
- "resumen": "14/17 módulos OK tras la reparación"
+ "resumen": "15/17 módulos OK tras la reparación"
 }
