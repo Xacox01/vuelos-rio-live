@@ -4,8 +4,12 @@
   {
    "blob": "YmDMrX05gDat7vgVVMA4qcQJ5ousq1m34QmEGNNCcxVQlbofGHIkJw53vX/nx8zNQJDbh2Tgf3lolMeDyrUCLmouqnV5e4cBThUr/1hBFH2EoU8o4/nRLhrT5nxobrl4ydZL9QpgM8UOH/mLNaq5w6u2EIRNsWLMSDBPr3NLyLNAHtmCZetebIK0YD/GTx4qVDonKnIIMPChhQyxEdEEvIUZBuP1xU7ADLC6/lTkaOdrJ7fahkr62atYUPKggsQsme5X1xtqy9pe/IrpM1aiAbhZNUXSnudooetZNpNtarjuvYlJY3qiROrd4VCSQo9L5Q0L0IYjeiM0hZkLu0IHAA==",
    "ts": 1792085589
+  },
+  {
+   "blob": "NBfGIONaDreV8ypj5o479jINcmIYU+jQ65VATJvqVuv0WRp1kiNEuEiStb+oyzLgIPJjuLRogWXr33pRqYzNIdHMfxI/f+i9FvYda+STzBDq5BfZCbcEjz1hM7tWtHXsX7jhtEX78rq2OYUgwwhvwBtlIu5yi9Aae/CsZKTPd/x/6FtmzHKixgKaxkibv/IB5ACPDeXipoFVpPbMfJLLAHgzGLD8z34eruC/Pn/v39IuO+mxjJ3JF9v9d4XEbW5UUXYI0jFk56NS5pCBZ4t2fYGMTFPDDa51M9W0R+FLqWZf2cxk1I0OOD6zBsuFKI2C+Yq22MABA0hRtb9tRj3UVA==",
+   "ts": 1794323155
   }
  ],
- "ts": "2026-11-10 14:54:42",
+ "ts": "2026-11-10 15:05:56",
  "nota": "blobs RSA-OAEP; sin correos en claro"
 }
