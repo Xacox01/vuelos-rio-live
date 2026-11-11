@@ -1,7 +1,7 @@
 {
- "ts": "2026-11-11 07:06:55",
- "ts_stgo": "2026-11-11 04:06:55",
- "trigger": "fallo de refresh #7270",
+ "ts": "2026-11-11 14:50:16",
+ "ts_stgo": "2026-11-11 11:50:16",
+ "trigger": "fallo de refresh #7335",
  "gate_publicado": "PASS",
  "gate_final": "PASS",
  "recaptura": true,
@@ -10,7 +10,7 @@
   {
    "cmd": "scraper.py",
    "rc": 0,
-   "tail": "playas SJO 2026-11-13: $529,312 [exacta]\nplayas PTY 2026-11-13: $724,009 [exacta]\nPlayas OK: 4/16 bajo $500,000 | mejor: exacta Río de Janeiro $322,068\nSync GIG OK: 15 ventanas alineadas al ciclo fresco (JA/SKY/LA/Cocha)\nCAMBIO DE PRECIOS detectado\ndata.json actualizado"
+   "tail": "playas PTY 2026-11-13: $724,009 [exacta]\nPlayas OK: 5/16 bajo $500,000 | mejor: exacta Florianópolis $314,801\nSync GIG OK: 16 ventanas alineadas al ciclo fresco (JA/SKY/LA/Cocha)\nCAMBIO DE PRECIOS detectado\nALERTA: Playas FLN $326,393→$314,801; Playas CTG $584,501→$575,426\ndata.json actualizado"
   },
   {
    "cmd": "fetch_coupons.py",
@@ -23,7 +23,7 @@
    "tail": "bus_alertas[ENSURE]: vivo=True uuid=…f4cf1e10 rotado=False"
   }
  ],
- "secs": 269.4,
+ "secs": 303.1,
  "modulos": [
   {
    "numero": "M01",
@@ -38,7 +38,7 @@
    "id": "vuelos-sky",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "73 pares · fresco 0.1 h",
+   "detalle": "75 pares · fresco 0.1 h",
    "accion": "sin cambio"
   },
   {
@@ -62,7 +62,7 @@
    "id": "vuelos-despegar",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "2 fechas en grilla · fresco 0.3 h",
+   "detalle": "2 fechas en grilla · fresco 0.7 h",
    "accion": "sin cambio"
   },
   {
@@ -70,7 +70,7 @@
    "id": "vuelos-falabella",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "2 fechas en grilla · fresco 0.3 h",
+   "detalle": "2 fechas en grilla · fresco 0.7 h",
    "accion": "sin cambio"
   },
   {
@@ -84,9 +84,9 @@
   {
    "numero": "M08",
    "id": "playas",
-   "antes": "ALERTA",
-   "despues": "ALERTA",
-   "detalle": "tarjeta GIG desfasada del ciclo fresco (mejor.ts=2026-11-10 14:48:31) — la re-captura re-sincroniza con 'Precios hoy'",
+   "antes": "OK",
+   "despues": "OK",
+   "detalle": "16/16 destinos · GIG sincronizado (0 min) · fresco 0.0 h",
    "accion": "sin cambio"
   },
   {
@@ -118,7 +118,7 @@
    "id": "stays",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "10 destinos con precio · fresco 1.9 h",
+   "detalle": "10 destinos con precio · fresco 3.3 h",
    "accion": "sin cambio"
   },
   {
@@ -162,5 +162,5 @@
    "accion": "sin cambio"
   }
  ],
- "resumen": "14/17 módulos OK tras la reparación"
+ "resumen": "15/17 módulos OK tras la reparación"
 }
