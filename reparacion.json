@@ -1,7 +1,7 @@
 {
- "ts": "2026-11-11 21:07:09",
- "ts_stgo": "2026-11-11 18:07:09",
- "trigger": "fallo de refresh #7379",
+ "ts": "2026-11-12 02:36:48",
+ "ts_stgo": "2026-11-11 23:36:48",
+ "trigger": "fallo de refresh #7404",
  "gate_publicado": "FAIL",
  "gate_final": "PASS",
  "recaptura": true,
@@ -10,7 +10,7 @@
   {
    "cmd": "scraper.py",
    "rc": 0,
-   "tail": "playas SJO 2026-11-13: $529,312 [exacta]\nplayas PTY 2026-11-13: $724,009 [exacta]\nPlayas OK: 4/16 bajo $500,000 | mejor: exacta Florianópolis $314,801\nSync GIG OK: 16 ventanas alineadas al ciclo fresco (JA/SKY/LA/Cocha)\nCAMBIO DE PRECIOS detectado\ndata.json actualizado"
+   "tail": "cocha PTY: HTTP Error 403:  [directo] — cambio de ruta\nplayas PTY 2026-11-14 FAIL: HTTP Error 403: \nPlayas OK: 2/16 bajo $500,000 | mejor: 🇧🇷 Río de Janeiro $315,426\nSync GIG OK: 15 ventanas alineadas al ciclo fresco (JA/SKY/LA/Cocha)\nSIN CAMBIOS de precios (verificación registrada)\ndata.json actualizado"
   },
   {
    "cmd": "fetch_coupons.py",
@@ -23,14 +23,14 @@
    "tail": "bus_alertas[ENSURE]: vivo=True uuid=…f4cf1e10 rotado=False"
   }
  ],
- "secs": 297.5,
+ "secs": 98.2,
  "modulos": [
   {
    "numero": "M01",
    "id": "vuelos-jetsmart",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "20 combos · fresco 0.1 h",
+   "detalle": "20 combos · fresco 0.0 h",
    "accion": "sin cambio"
   },
   {
@@ -38,7 +38,7 @@
    "id": "vuelos-sky",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "83 pares · fresco 0.1 h",
+   "detalle": "86 pares · fresco 0.0 h",
    "accion": "sin cambio"
   },
   {
@@ -46,7 +46,7 @@
    "id": "vuelos-latam",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "20 combos · fresco 0.1 h",
+   "detalle": "20 combos · fresco 0.0 h",
    "accion": "sin cambio"
   },
   {
@@ -54,7 +54,7 @@
    "id": "vuelos-cocha",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "3 ventanas (mínimos verificados) · fresco 0.1 h",
+   "detalle": "3 ventanas (mínimos verificados) · fresco 0.8 h",
    "accion": "sin cambio"
   },
   {
@@ -62,7 +62,7 @@
    "id": "vuelos-despegar",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "2 fechas en grilla · fresco 1.5 h",
+   "detalle": "2 fechas en grilla · fresco 0.8 h",
    "accion": "sin cambio"
   },
   {
@@ -70,7 +70,7 @@
    "id": "vuelos-falabella",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "2 fechas en grilla · fresco 1.5 h",
+   "detalle": "2 fechas en grilla · fresco 0.8 h",
    "accion": "sin cambio"
   },
   {
@@ -118,7 +118,7 @@
    "id": "stays",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "10 destinos con precio · fresco 3.4 h",
+   "detalle": "10 destinos con precio · fresco 2.7 h",
    "accion": "sin cambio"
   },
   {
@@ -126,7 +126,7 @@
    "id": "noche",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "congelamiento del 2026-11-10 · 20 series",
+   "detalle": "congelamiento del 2026-11-11 · 20 series",
    "accion": "sin cambio"
   },
   {
