@@ -1,7 +1,7 @@
 {
- "ts": "2026-11-14 21:38:11",
- "ts_stgo": "2026-11-14 18:38:11",
- "n": 96,
+ "ts": "2026-11-15 01:09:51",
+ "ts_stgo": "2026-11-14 22:09:51",
+ "n": 97,
  "total": 17,
  "ok": 17,
  "alertas": 0,
@@ -22,7 +22,7 @@
    "estado": "OK",
    "color": "#10b981",
    "frescura_h": 0.1,
-   "detalle": "mínimo $331,053.0 · 83 registros · fresco 0.1 h (límite 26 h)",
+   "detalle": "mínimo $331,053.0 · 87 registros · fresco 0.1 h (límite 26 h)",
    "muestra": []
   },
   {
@@ -39,8 +39,8 @@
    "nombre": "M04 · Vuelos Cocha",
    "estado": "OK",
    "color": "#10b981",
-   "frescura_h": 0.5,
-   "detalle": "mínimo $365,521 · 3 registros · fresco 0.5 h (límite 30 h)",
+   "frescura_h": 0.2,
+   "detalle": "mínimo $365,521 · 3 registros · fresco 0.2 h (límite 30 h)",
    "muestra": []
   },
   {
@@ -48,8 +48,8 @@
    "nombre": "M05 · Vuelos Despegar",
    "estado": "OK",
    "color": "#10b981",
-   "frescura_h": 0.5,
-   "detalle": "mínimo $164,102 · 2 registros · fresco 0.5 h (límite 30 h)",
+   "frescura_h": 0.2,
+   "detalle": "mínimo $159,970 · 2 registros · fresco 0.2 h (límite 30 h)",
    "muestra": []
   },
   {
@@ -57,8 +57,8 @@
    "nombre": "M06 · Vuelos Viajes Falabella",
    "estado": "OK",
    "color": "#10b981",
-   "frescura_h": 0.5,
-   "detalle": "mínimo $169,903 · 2 registros · fresco 0.5 h (límite 30 h)",
+   "frescura_h": 0.2,
+   "detalle": "mínimo $159,970 · 2 registros · fresco 0.2 h (límite 30 h)",
    "muestra": []
   },
   {
@@ -67,84 +67,88 @@
    "estado": "OK",
    "color": "#10b981",
    "frescura_h": null,
-   "detalle": "diferencia 4% ($164,102 vs $169,903) — coherentes",
+   "detalle": "diferencia 0% ($159,970 vs $159,970) — coherentes",
    "muestra": []
   },
   {
    "id": "playas",
    "nombre": "M08 · Playas del extranjero",
-   "estado": "CORREGIDO",
+   "estado": "OK",
    "color": "#10b981",
    "frescura_h": 0.1,
-   "detalle": "16 destinos · 16 con precio · mínimo $317,957 · ventanas exactas 120/flex 0 · fresco 0.1 h · CORREGIDOS EN VIVO: GIG (exactas 120, flex 0)",
+   "detalle": "16 destinos · 16 con precio · mínimo $317,957 · ventanas exactas 139/flex 0 · fresco 0.1 h · muestra viva verificada 5/6 (exactas 139, flex 0)",
    "muestra": [
     {
-     "cod": "GIG",
-     "ida": "2026-12-17",
-     "vuelta": "2026-12-30",
-     "pub": 317957,
-     "vivo": 351323,
-     "diff_pct": 10.5,
-     "exacta": true,
-     "aerolinea": "JetSMART",
-     "veredicto": "CORREGIDO"
-    },
-    {
-     "cod": "FLN",
+     "cod": "REC",
      "ida": "2026-11-24",
      "vuelta": "2026-12-03",
-     "pub": 328376,
-     "vivo": 328376,
+     "pub": 533512,
+     "vivo": 533512,
      "diff_pct": 0.0,
      "exacta": true,
      "aerolinea": "LATAM",
      "veredicto": "VERIFICADO"
     },
     {
-     "cod": "SSA",
-     "ida": "2026-11-15",
-     "vuelta": "2026-12-14",
-     "pub": 513185,
-     "vivo": 514987,
-     "diff_pct": 0.4,
+     "cod": "MCZ",
+     "ida": "2026-12-06",
+     "vuelta": "2026-12-15",
+     "pub": 539570,
+     "vivo": 539570,
+     "diff_pct": 0.0,
+     "exacta": true,
+     "aerolinea": "LATAM",
+     "veredicto": "VERIFICADO"
+    },
+    {
+     "cod": "NAT",
+     "ida": "2026-11-17",
+     "vuelta": "2026-12-16",
+     "pub": 556365,
+     "vivo": 556365,
+     "diff_pct": 0.0,
      "exacta": true,
      "aerolinea": "LATAM",
      "veredicto": "VERIFICADO"
     },
     {
      "cod": "PUJ",
-     "ida": "2026-11-23",
-     "vuelta": "2026-12-02",
-     "pub": 514151,
-     "vivo": 516240,
-     "diff_pct": 0.4,
-     "exacta": true,
-     "aerolinea": "SKY",
-     "veredicto": "VERIFICADO"
-    },
-    {
-     "cod": "FOR",
      "ida": "2026-11-24",
      "vuelta": "2026-12-03",
-     "pub": 520566,
-     "vivo": 520566,
+     "pub": 587956,
+     "vivo": 587956,
      "diff_pct": 0.0,
      "exacta": true,
-     "aerolinea": "LATAM",
+     "aerolinea": "Avianca",
      "veredicto": "VERIFICADO"
     },
     {
-     "cod": "BPS",
+     "cod": "ADZ",
+     "pub": 598933,
+     "veredicto": "NO VERIFICABLE",
+     "nota": "sin itinerarios en vivo"
+    },
+    {
+     "cod": "CTG",
      "ida": "2026-12-06",
      "vuelta": "2026-12-15",
-     "pub": 521045,
-     "vivo": 521045,
+     "pub": 623997,
+     "vivo": 623997,
      "diff_pct": 0.0,
      "exacta": true,
-     "aerolinea": "GOL",
+     "aerolinea": "Copa",
      "veredicto": "VERIFICADO"
     }
    ]
+  },
+  {
+   "id": "viva-latam",
+   "nombre": "Muestra viva LATAM",
+   "estado": "VERIFICADO",
+   "color": "#10b981",
+   "frescura_h": null,
+   "detalle": "publicado $391,571 ≈ vivo $391,571 (0.0%) — el precio publicado es REAL",
+   "muestra": []
   },
   {
    "id": "viva-jetsmart",
@@ -156,21 +160,12 @@
    "muestra": []
   },
   {
-   "id": "viva-sky",
-   "nombre": "M10 · Muestra viva SKY",
-   "estado": "VERIFICADO",
-   "color": "#10b981",
-   "frescura_h": null,
-   "detalle": "publicado $331,053.0 ≈ vivo $331,053.0 (0.0%) — el precio publicado es REAL",
-   "muestra": []
-  },
-  {
    "id": "cupones",
    "nombre": "M11 · Cupones de descuento",
    "estado": "OK",
    "color": "#10b981",
-   "frescura_h": 1.6,
-   "detalle": "10 visibles de 93 cupones · fresco 1.6 h",
+   "frescura_h": 3.2,
+   "detalle": "10 visibles de 93 cupones · fresco 3.2 h",
    "muestra": []
   },
   {
@@ -178,8 +173,8 @@
    "nombre": "M12 · Radar de alojamientos",
    "estado": "OK",
    "color": "#10b981",
-   "frescura_h": 0.8,
-   "detalle": "6/10 destinos con precio · fresco 0.8 h",
+   "frescura_h": 4.3,
+   "detalle": "6/10 destinos con precio · fresco 4.3 h",
    "muestra": []
   },
   {
@@ -188,7 +183,7 @@
    "estado": "OK",
    "color": "#10b981",
    "frescura_h": null,
-   "detalle": "fecha 2026-11-13 · series 20",
+   "detalle": "fecha 2026-11-14 · series 20",
    "muestra": []
   },
   {
@@ -224,12 +219,12 @@
    "estado": "OK",
    "color": "#10b981",
    "frescura_h": null,
-   "detalle": "verify.js OK · 202/202 checks OK",
+   "detalle": "verify.js OK · 200/200 checks OK",
    "muestra": []
   }
  ],
  "sitio": {
-  "verify_js": "OK · 202/202 checks OK"
+  "verify_js": "OK · 200/200 checks OK"
  },
  "resumen": "17/17 módulos OK"
 }
