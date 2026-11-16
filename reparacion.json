@@ -1,7 +1,7 @@
 {
- "ts": "2026-11-16 03:52:05",
- "ts_stgo": "2026-11-16 00:52:05",
- "trigger": "fallo de refresh #8185",
+ "ts": "2026-11-16 20:03:50",
+ "ts_stgo": "2026-11-16 17:03:50",
+ "trigger": "fallo de refresh #8305",
  "gate_publicado": "PASS",
  "gate_final": "PASS",
  "recaptura": true,
@@ -23,7 +23,7 @@
    "tail": "bus_alertas[ENSURE]: vivo=True uuid=…f4cf1e10 rotado=False"
   }
  ],
- "secs": 259.8,
+ "secs": 271.8,
  "modulos": [
   {
    "numero": "M01",
@@ -38,7 +38,7 @@
    "id": "vuelos-sky",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "89 pares · fresco 0.1 h",
+   "detalle": "96 pares · fresco 0.1 h",
    "accion": "sin cambio"
   },
   {
@@ -54,7 +54,7 @@
    "id": "vuelos-cocha",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "3 ventanas (mínimos verificados) · fresco 0.0 h",
+   "detalle": "3 ventanas (mínimos verificados) · fresco 0.1 h",
    "accion": "sin cambio"
   },
   {
@@ -62,7 +62,7 @@
    "id": "vuelos-despegar",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "2 fechas en grilla · fresco 0.5 h",
+   "detalle": "2 fechas en grilla · fresco 0.9 h",
    "accion": "sin cambio"
   },
   {
@@ -70,7 +70,7 @@
    "id": "vuelos-falabella",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "2 fechas en grilla · fresco 0.5 h",
+   "detalle": "2 fechas en grilla · fresco 0.9 h",
    "accion": "sin cambio"
   },
   {
@@ -84,9 +84,9 @@
   {
    "numero": "M08",
    "id": "playas",
-   "antes": "OK",
-   "despues": "OK",
-   "detalle": "16/16 destinos · GIG sincronizado (0 min) · fresco 0.0 h",
+   "antes": "ALERTA",
+   "despues": "ALERTA",
+   "detalle": "tarjeta GIG desfasada del ciclo fresco (mejor.ts=2026-11-16 08:03:55) — la re-captura re-sincroniza con 'Precios hoy'",
    "accion": "sin cambio"
   },
   {
@@ -118,7 +118,7 @@
    "id": "stays",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "10 destinos con precio · fresco 5.1 h",
+   "detalle": "10 destinos con precio · fresco 2.3 h",
    "accion": "sin cambio"
   },
   {
@@ -162,5 +162,5 @@
    "accion": "sin cambio"
   }
  ],
- "resumen": "15/17 módulos OK tras la reparación"
+ "resumen": "14/17 módulos OK tras la reparación"
 }
