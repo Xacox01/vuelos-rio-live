@@ -1,12 +1,12 @@
 {
- "ts": "2026-11-18 06:44:26",
- "ts_stgo": "2026-11-18 03:44:26",
- "trigger": "fallo de refresh #8566",
+ "ts": "2026-11-18 07:06:42",
+ "ts_stgo": "2026-11-18 04:06:42",
+ "trigger": "fallo de refresh #8567",
  "gate_publicado": "PASS",
  "gate_final": "PASS",
  "recaptura": false,
  "motivos_recaptura_omitida": [
-  "última reparación hace 7 min (< 90) y el dato publicado pasa el gate — anti-bucle"
+  "última reparación hace 22 min (< 90) y el dato publicado pasa el gate — anti-bucle"
  ],
  "comandos": [
   {
@@ -15,14 +15,14 @@
    "tail": "bus_alertas[ENSURE]: vivo=True uuid=…e4cb7954 rotado=False"
   }
  ],
- "secs": 2.1,
+ "secs": 2.2,
  "modulos": [
   {
    "numero": "M01",
    "id": "vuelos-jetsmart",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "20 combos · fresco 0.2 h",
+   "detalle": "20 combos · fresco 0.6 h",
    "accion": "sin cambio"
   },
   {
@@ -30,7 +30,7 @@
    "id": "vuelos-sky",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "82 pares · fresco 0.2 h",
+   "detalle": "82 pares · fresco 0.6 h",
    "accion": "sin cambio"
   },
   {
@@ -38,7 +38,7 @@
    "id": "vuelos-latam",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "20 combos · fresco 0.2 h",
+   "detalle": "20 combos · fresco 0.6 h",
    "accion": "sin cambio"
   },
   {
@@ -46,7 +46,7 @@
    "id": "vuelos-cocha",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "3 ventanas (mínimos verificados) · fresco 0.2 h",
+   "detalle": "3 ventanas (mínimos verificados) · fresco 0.5 h",
    "accion": "sin cambio"
   },
   {
@@ -54,7 +54,7 @@
    "id": "vuelos-despegar",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "2 fechas en grilla · fresco 0.8 h",
+   "detalle": "2 fechas en grilla · fresco 1.2 h",
    "accion": "sin cambio"
   },
   {
@@ -62,7 +62,7 @@
    "id": "vuelos-falabella",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "2 fechas en grilla · fresco 0.8 h",
+   "detalle": "2 fechas en grilla · fresco 1.2 h",
    "accion": "sin cambio"
   },
   {
@@ -102,7 +102,7 @@
    "id": "cupones",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "10 visibles de 92 (7 con código) · fresco 0.1 h",
+   "detalle": "10 visibles de 92 (7 con código) · fresco 0.5 h",
    "accion": "sin cambio"
   },
   {
@@ -110,7 +110,7 @@
    "id": "stays",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "10 destinos con precio · fresco 6.0 h",
+   "detalle": "10 destinos con precio · fresco 6.4 h",
    "accion": "sin cambio"
   },
   {
