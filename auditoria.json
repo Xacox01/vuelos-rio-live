@@ -1,7 +1,7 @@
 {
- "ts": "2026-11-22 07:13:38",
- "ts_stgo": "2026-11-22 04:13:38",
- "n": 122,
+ "ts": "2026-11-22 20:25:06",
+ "ts_stgo": "2026-11-22 17:25:06",
+ "n": 123,
  "total": 17,
  "ok": 17,
  "alertas": 0,
@@ -13,7 +13,7 @@
    "estado": "OK",
    "color": "#10b981",
    "frescura_h": 0.1,
-   "detalle": "mínimo $328,327 · 20 registros · fresco 0.1 h (límite 26 h)",
+   "detalle": "mínimo $322,333 · 20 registros · fresco 0.1 h (límite 26 h)",
    "muestra": []
   },
   {
@@ -22,7 +22,7 @@
    "estado": "OK",
    "color": "#10b981",
    "frescura_h": 0.1,
-   "detalle": "mínimo $430,057.0 · 82 registros · fresco 0.1 h (límite 26 h)",
+   "detalle": "mínimo $430,057.0 · 88 registros · fresco 0.1 h (límite 26 h)",
    "muestra": []
   },
   {
@@ -39,8 +39,8 @@
    "nombre": "M04 · Vuelos Cocha",
    "estado": "OK",
    "color": "#10b981",
-   "frescura_h": 0.3,
-   "detalle": "mínimo $403,668 · 3 registros · fresco 0.3 h (límite 30 h)",
+   "frescura_h": 0.5,
+   "detalle": "mínimo $403,668 · 3 registros · fresco 0.5 h (límite 30 h)",
    "muestra": []
   },
   {
@@ -48,8 +48,8 @@
    "nombre": "M05 · Vuelos Despegar",
    "estado": "OK",
    "color": "#10b981",
-   "frescura_h": 0.9,
-   "detalle": "mínimo $188,256 · 2 registros · fresco 0.9 h (límite 30 h)",
+   "frescura_h": 0.5,
+   "detalle": "mínimo $190,612 · 2 registros · fresco 0.5 h (límite 30 h)",
    "muestra": []
   },
   {
@@ -57,8 +57,8 @@
    "nombre": "M06 · Vuelos Viajes Falabella",
    "estado": "OK",
    "color": "#10b981",
-   "frescura_h": 0.9,
-   "detalle": "mínimo $207,123 · 2 registros · fresco 0.9 h (límite 30 h)",
+   "frescura_h": 0.5,
+   "detalle": "mínimo $199,971 · 2 registros · fresco 0.5 h (límite 30 h)",
    "muestra": []
   },
   {
@@ -67,84 +67,93 @@
    "estado": "OK",
    "color": "#10b981",
    "frescura_h": null,
-   "detalle": "diferencia 10% ($188,256 vs $207,123) — coherentes",
+   "detalle": "diferencia 5% ($190,612 vs $199,971) — coherentes",
    "muestra": []
   },
   {
    "id": "playas",
    "nombre": "M08 · Playas del extranjero",
-   "estado": "CORREGIDO",
+   "estado": "OK",
    "color": "#10b981",
-   "frescura_h": 0.1,
-   "detalle": "16 destinos · 16 con precio · mínimo $328,327 · ventanas exactas 120/flex 0 · fresco 0.1 h · CORREGIDOS EN VIVO: GIG (exactas 120, flex 0)",
+   "frescura_h": 0.0,
+   "detalle": "16 destinos · 16 con precio · mínimo $322,333 · ventanas exactas 121/flex 0 · fresco 0.0 h · muestra viva verificada 6/6 (exactas 121, flex 0)",
    "muestra": [
     {
-     "cod": "HAV",
+     "cod": "CTG",
+     "ida": "2026-11-24",
+     "vuelta": "2026-12-23",
+     "pub": 514874,
+     "vivo": 537145,
+     "diff_pct": 4.3,
+     "exacta": true,
+     "aerolinea": "Copa",
+     "veredicto": "VERIFICADO"
+    },
+    {
+     "cod": "SSA",
      "ida": "2026-12-14",
      "vuelta": "2026-12-23",
-     "pub": 713495,
-     "vivo": 713495,
+     "pub": 523453,
+     "vivo": 523453,
      "diff_pct": 0.0,
+     "exacta": true,
+     "aerolinea": "SKY",
+     "veredicto": "VERIFICADO"
+    },
+    {
+     "cod": "FOR",
+     "ida": "2026-12-02",
+     "vuelta": "2026-12-11",
+     "pub": 530632,
+     "vivo": 530632,
+     "diff_pct": 0.0,
+     "exacta": true,
+     "aerolinea": "LATAM",
+     "veredicto": "VERIFICADO"
+    },
+    {
+     "cod": "SJO",
+     "ida": "2026-11-24",
+     "vuelta": "2026-12-23",
+     "pub": 538303,
+     "vivo": 547750,
+     "diff_pct": 1.8,
      "exacta": true,
      "aerolinea": "Copa",
      "veredicto": "VERIFICADO"
     },
     {
-     "cod": "CUN",
+     "cod": "MCZ",
      "ida": "2026-12-01",
      "vuelta": "2026-12-10",
-     "pub": 730987,
-     "vivo": 730987,
+     "pub": 553433,
+     "vivo": 553433,
      "diff_pct": 0.0,
      "exacta": true,
-     "aerolinea": "Aeroméxico",
+     "aerolinea": "LATAM",
      "veredicto": "VERIFICADO"
     },
     {
-     "cod": "PTY",
+     "cod": "BPS",
      "ida": "2026-12-13",
      "vuelta": "2026-12-22",
-     "pub": 742983,
-     "vivo": 742983,
+     "pub": 557529,
+     "vivo": 557529,
      "diff_pct": 0.0,
      "exacta": true,
-     "aerolinea": "Copa",
-     "veredicto": "VERIFICADO"
-    },
-    {
-     "cod": "LIR",
-     "ida": "2026-11-23",
-     "vuelta": "2026-12-22",
-     "pub": 2397571,
-     "vivo": 2317901,
-     "diff_pct": 3.3,
-     "exacta": true,
-     "aerolinea": "AA",
-     "veredicto": "VERIFICADO"
-    },
-    {
-     "cod": "GIG",
-     "ida": "2026-12-19",
-     "vuelta": "2026-12-25",
-     "pub": 328327,
-     "vivo": 356682,
-     "diff_pct": 8.6,
-     "exacta": true,
-     "aerolinea": "JetSMART",
-     "veredicto": "CORREGIDO"
-    },
-    {
-     "cod": "FLN",
-     "ida": "2026-12-01",
-     "vuelta": "2026-12-10",
-     "pub": 384095,
-     "vivo": 384095,
-     "diff_pct": 0.0,
-     "exacta": true,
-     "aerolinea": "JetSMART",
+     "aerolinea": "GOL",
      "veredicto": "VERIFICADO"
     }
    ]
+  },
+  {
+   "id": "viva-jetsmart",
+   "nombre": "M09 · Muestra viva JetSMART",
+   "estado": "VERIFICADO",
+   "color": "#10b981",
+   "frescura_h": null,
+   "detalle": "publicado $322,333 ≈ vivo $322,333 (0.0%) — el precio publicado es REAL",
+   "muestra": []
   },
   {
    "id": "viva-sky",
@@ -156,21 +165,12 @@
    "muestra": []
   },
   {
-   "id": "viva-latam",
-   "nombre": "Muestra viva LATAM",
-   "estado": "VERIFICADO",
-   "color": "#10b981",
-   "frescura_h": null,
-   "detalle": "publicado $460,357 ≈ vivo $460,357 (0.0%) — el precio publicado es REAL",
-   "muestra": []
-  },
-  {
    "id": "cupones",
    "nombre": "M11 · Cupones de descuento",
    "estado": "OK",
    "color": "#10b981",
-   "frescura_h": 2.5,
-   "detalle": "10 visibles de 92 cupones · fresco 2.5 h",
+   "frescura_h": 3.6,
+   "detalle": "10 visibles de 92 cupones · fresco 3.6 h",
    "muestra": []
   },
   {
@@ -178,8 +178,8 @@
    "nombre": "M12 · Radar de alojamientos",
    "estado": "OK",
    "color": "#10b981",
-   "frescura_h": 3.4,
-   "detalle": "10/10 destinos con precio · fresco 3.4 h",
+   "frescura_h": 4.3,
+   "detalle": "10/10 destinos con precio · fresco 4.3 h",
    "muestra": []
   },
   {
