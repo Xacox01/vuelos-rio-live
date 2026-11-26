@@ -1,7 +1,7 @@
 {
- "ts": "2026-11-25 13:00:26",
- "ts_stgo": "2026-11-25 10:00:26",
- "trigger": "fallo de refresh #9903",
+ "ts": "2026-11-26 01:17:34",
+ "ts_stgo": "2026-11-25 22:17:34",
+ "trigger": "fallo de refresh #9939",
  "gate_publicado": "PASS",
  "gate_final": "PASS",
  "recaptura": true,
@@ -10,7 +10,7 @@
   {
    "cmd": "scraper.py",
    "rc": 0,
-   "tail": "playas SJO 2026-12-05: $863,365 [exacta]\nplayas PTY 2026-12-05: $1,009,000 [exacta]\nPlayas OK: 2/16 bajo $500,000 | mejor: exacta Florianópolis $276,193\nSync GIG OK: 19 ventanas alineadas al ciclo fresco (JA/SKY/LA/Cocha)\nCAMBIO DE PRECIOS detectado\ndata.json actualizado"
+   "tail": "playas SJO 2026-11-28: $609,007 [exacta]\nplayas PTY 2026-11-28: $780,862 [exacta]\nPlayas OK: 2/16 bajo $500,000 | mejor: exacta Río de Janeiro $239,401\nSync GIG OK: 28 ventanas alineadas al ciclo fresco (JA/SKY/LA/Cocha)\nCAMBIO DE PRECIOS detectado\ndata.json actualizado"
   },
   {
    "cmd": "fetch_coupons.py",
@@ -23,7 +23,7 @@
    "tail": "bus_alertas[ENSURE]: vivo=True uuid=…6486cb49 rotado=False"
   }
  ],
- "secs": 278.2,
+ "secs": 249.6,
  "modulos": [
   {
    "numero": "M01",
@@ -38,7 +38,7 @@
    "id": "vuelos-sky",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "123 pares · fresco 0.1 h",
+   "detalle": "181 pares · fresco 0.1 h",
    "accion": "sin cambio"
   },
   {
@@ -54,7 +54,7 @@
    "id": "vuelos-cocha",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "3 ventanas (mínimos verificados) · fresco 0.1 h",
+   "detalle": "3 ventanas (mínimos verificados) · fresco 0.0 h",
    "accion": "sin cambio"
   },
   {
@@ -84,9 +84,9 @@
   {
    "numero": "M08",
    "id": "playas",
-   "antes": "OK",
-   "despues": "OK",
-   "detalle": "16/16 destinos · GIG sincronizado (0 min) · fresco 0.0 h",
+   "antes": "ALERTA",
+   "despues": "ALERTA",
+   "detalle": "tarjeta GIG desfasada del ciclo fresco (mejor.ts=2026-11-25 15:44:15) — la re-captura re-sincroniza con 'Precios hoy'",
    "accion": "sin cambio"
   },
   {
@@ -118,7 +118,7 @@
    "id": "stays",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "10 destinos con precio · fresco 0.5 h",
+   "detalle": "10 destinos con precio · fresco 1.7 h",
    "accion": "sin cambio"
   },
   {
@@ -126,7 +126,7 @@
    "id": "noche",
    "antes": "OK",
    "despues": "OK",
-   "detalle": "congelamiento del 2026-11-24 · 20 series",
+   "detalle": "congelamiento del 2026-11-25 · 20 series",
    "accion": "sin cambio"
   },
   {
@@ -162,5 +162,5 @@
    "accion": "sin cambio"
   }
  ],
- "resumen": "15/17 módulos OK tras la reparación"
+ "resumen": "14/17 módulos OK tras la reparación"
 }
